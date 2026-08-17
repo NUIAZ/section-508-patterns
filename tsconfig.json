@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["node"],
+
+    /* Strictness. The brief asks for strict TypeScript with no `any`; these are the
+       flags that actually enforce that rather than just claiming it. */
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+
+    /* Bundler-friendly emit settings. Vite transpiles file-by-file, so every file must
+       be independently understandable (isolatedModules) and type-only imports must be
+       marked as such (verbatimModuleSyntax) or they would survive into the output. */
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    /* axe-core still ships `export = axe`; interop lets us default-import it without a
+       require() call that a bundler-targeted ESM build cannot emit. */
+    "esModuleInterop": true,
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+
+    /* Vite owns emit; tsc is used purely as a type checker in `npm run build`. */
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo"
+  },
+  "include": ["src", "vite.config.ts", "vitest.setup.ts"]
+}

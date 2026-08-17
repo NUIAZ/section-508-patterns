@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+# Build and publish the static site on every push to the default branch, and on demand.
+# Enable this in the repository settings first: Settings → Pages → Build and deployment →
+# Source: "GitHub Actions". Without that, the deploy step fails with a 404.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  # `contents: read` is all the build needs; the two below are what the Pages deployment
+  # requires. `id-token: write` lets the deploy action mint the OIDC token that proves to
+  # the Pages service which workflow run produced the artifact.
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time. `cancel-in-progress: false` because cancelling a half-finished
+# Pages deployment can leave the site in an inconsistent state — better to let it land and
+# have the next run supersede it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `npm ci` rather than `npm install`: it installs exactly what the lockfile says and
+      # fails loudly if package.json and the lockfile have drifted.
+      - name: Install dependencies
+        run: npm ci
+
+      # The site claims to be a reference for accessible code, so a failing accessibility
+      # test suite must block the deploy. This is the whole argument for CI a11y tests in
+      # one line of YAML.
+      - name: Run the test suite
+        run: npm test
+
+      # `npm run build` runs `tsc -b` first, so a type error also blocks the deploy.
+      - name: Build
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      viewport: no `maximum-scale` and no `user-scalable=no`. Locking pinch-zoom is one of
+      the most common real-world failures of WCAG 1.4.4 Resize Text (AA) on mobile, and
+      this site is meant to be the proof, not just the description.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A live, working reference of web accessibility patterns, each shown with a real demo, a deliberately broken version, source code, and its WCAG 2.1 / Section 508 mapping."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <title>Section 508 Patterns — a live accessibility reference</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      This reference renders its demos with JavaScript, because the point of it is to let
+      you operate real interactive components with a keyboard and a screen reader. The
+      written checklist and the WCAG mappings are also available in the repository README.
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -50,7 +50,7 @@ describe('pattern card', () => {
     await user.click(screen.getByRole('radio', { name: 'Broken' }));
 
     expect(stage).toHaveAttribute('data-variant', 'broken');
-    // The named button is gone — the same component, with the naming removed.
+    // The named button is gone: the same component, with the naming removed.
     expect(within(stage).queryByRole('button', { name: 'Delete paragraph' })).not.toBeInTheDocument();
     // …and an explanation of what was sabotaged appears, in text.
     expect(screen.getByText(/broken on purpose/i)).toBeInTheDocument();

@@ -9,7 +9,7 @@ import './styles/global.css';
  *
  * StrictMode is on deliberately, even though it double-invokes effects in development.
  * Several patterns here manage focus inside effects, and StrictMode's double-invocation is
- * exactly the pressure that exposes a focus handler which is not idempotent — which is a
+ * exactly the pressure that exposes a focus handler which is not idempotent, which is a
  * real bug, not a React quirk.
  */
 const container = document.getElementById('root');

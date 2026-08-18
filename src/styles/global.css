@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Section 508 Patterns — global stylesheet
+   Section 508 Patterns: global stylesheet
 
    Rules this file holds itself to, because the site is the proof:
      * Every text/background pair below has been run through the site's own contrast
@@ -10,7 +10,7 @@
        (SC 1.4.4 Resize Text, AA).
      * `outline` is never removed without a replacement (SC 2.4.7 Focus Visible, AA).
      * Layout is flex/grid with wrapping, so the page reflows to 320px with no horizontal
-       scrolling (SC 1.4.10 Reflow, AA — WCAG 2.1).
+       scrolling (SC 1.4.10 Reflow, AA, WCAG 2.1).
      * Every animation is behind `prefers-reduced-motion`.
    ========================================================================== */
 
@@ -31,7 +31,7 @@
   --success: #1a6b34;           /* 6.5:1  */
   --warning: #8a5300;           /* 6.3:1  */
   --border: #c9ced6;            /* decorative separators only */
-  --border-strong: #6f747d;     /* 4.3:1 — used for control borders (SC 1.4.11, 3:1 min) */
+  --border-strong: #6f747d;     /* 4.3:1, used for control borders (SC 1.4.11, 3:1 min) */
   --focus: #0b57d0;
   --code-bg: #f2f3f6;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06);
@@ -156,7 +156,7 @@ kbd {
 }
 
 /* --------------------------------------------------------------------------
-   Focus visibility — SC 2.4.7 Focus Visible (AA)
+   Focus visibility: SC 2.4.7 Focus Visible (AA)
    -------------------------------------------------------------------------- */
 
 /* One global rule, applied with :focus-visible so pointer users do not get a ring on
@@ -180,7 +180,7 @@ kbd {
    -------------------------------------------------------------------------- */
 
 /* Visually hidden but still in the accessibility tree, so screen readers announce it.
-   `display: none` and `visibility: hidden` would remove it from the tree entirely — that
+   `display: none` and `visibility: hidden` would remove it from the tree entirely; that
    is the difference this class exists to teach. The 1px clip-path technique also avoids
    the horizontal-scroll bug that `text-indent: -9999px` causes in RTL. */
 .sr-only {
@@ -196,7 +196,7 @@ kbd {
 }
 
 /* Same as .sr-only until focused, at which point it becomes fully visible. This is the
-   skip-link technique — SC 2.4.1 Bypass Blocks (A). */
+   skip-link technique. SC 2.4.1 Bypass Blocks (A). */
 .sr-only-focusable:not(:focus):not(:focus-within) {
   position: absolute !important;
   width: 1px;
@@ -248,7 +248,7 @@ kbd {
 
 .site-sidebar {
   position: sticky;
-  /* Sticky, but never taller than the viewport, and scrollable inside — otherwise the
+  /* Sticky, but never taller than the viewport, and scrollable inside; otherwise the
      bottom of a long pattern index becomes unreachable at high zoom. */
   top: 1rem;
   align-self: start;
@@ -290,7 +290,7 @@ kbd {
   font-size: var(--step--1);
 }
 
-/* One column below 900px, as the brief requires. The sidebar stops being sticky here —
+/* One column below 900px, as the brief requires. The sidebar stops being sticky here,
    a sticky sidebar on a phone eats the viewport. */
 @media (max-width: 900px) {
   .app-shell {
@@ -372,7 +372,7 @@ textarea {
 input[aria-invalid='true'],
 textarea[aria-invalid='true'],
 select[aria-invalid='true'] {
-  /* Thicker AND a different colour AND an adjacent text message — three signals, so the
+  /* Thicker AND a different colour AND an adjacent text message, three signals, so the
      error survives a visitor who cannot distinguish the colour (SC 1.4.1). */
   border-width: 2px;
   border-color: var(--danger);
@@ -511,7 +511,7 @@ legend {
 
 .demo-stage[data-variant='broken'] {
   /* Dashed border + the word "Broken" in the caption + the warning banner. Not colour
-     alone — the whole point. */
+     alone: the whole point. */
   border-style: dashed;
   border-width: 2px;
   border-color: var(--danger);
@@ -760,7 +760,7 @@ table.data-table thead th {
 }
 
 /* --------------------------------------------------------------------------
-   Print — the checklist has to survive being printed and handed to someone
+   Print: the checklist has to survive being printed and handed to someone
    -------------------------------------------------------------------------- */
 
 @media print {
@@ -798,7 +798,7 @@ table.data-table thead th {
 }
 
 /* --------------------------------------------------------------------------
-   Reduced motion — SC 2.3.3 Animation from Interactions (AAA), and plain decency
+   Reduced motion: SC 2.3.3 Animation from Interactions (AAA), and plain decency
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {

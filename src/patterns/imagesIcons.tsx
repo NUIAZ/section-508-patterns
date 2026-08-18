@@ -62,7 +62,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
           </h5>
           {broken ? (
             // BROKEN: no alt attribute at all. Most screen readers fall back to reading
-            // the filename or the URL — with a data: URI that means a wall of gibberish.
+            // the filename or the URL; with a data: URI that means a wall of gibberish.
             // The second-worst option, `alt="chart"`, is only marginally better: it names
             // the picture and withholds the information.
             <img src={dataUri(CHART_SVG)} data-kind="bar chart" width={220} height={120} />
@@ -75,7 +75,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
               // The alternative conveys the INFORMATION, not the appearance. If the chart
               // needs more than about a sentence, put the full data in a table nearby and
               // make the alt a pointer to it.
-              alt="Units shipped per quarter: Q1 400, Q2 580, Q3 760, Q4 900 — a steady rise across the year."
+              alt="Units shipped per quarter: Q1 400, Q2 580, Q3 760, Q4 900, a steady rise across the year."
             />
           )}
           <p className="hint" style={{ marginBlockEnd: 0 }}>
@@ -127,7 +127,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
                 // is announced as "graphic", or worse, the raw <title> of a decorative
                 // shape gets read next to the text it decorates. `focusable="false"` is
                 // also missing, which in legacy Internet Explorer / Edge made every inline
-                // SVG a tab stop — worth keeping for the same reason people keep type=
+                // SVG a tab stop; worth keeping for the same reason people keep type=
                 // "button": it costs nothing.
                 <svg viewBox="0 0 16 16" width="16" height="16">
                   <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
@@ -139,7 +139,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
                   <path d="M5 8l2 2 4-4" fill="none" stroke="currentColor" strokeWidth="2" />
                 </svg>
               )}
-              Verified — decorative icon beside real text
+              Verified: decorative icon beside real text
             </span>
 
             {/* Always correct in both variants: an SVG that IS the content, named through
@@ -166,10 +166,10 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
             <li key={index}>
               <strong>{entry.kind}</strong>:{' '}
               {entry.alt === null ? (
-                <em>no alt attribute — the filename or URL may be read out instead</em>
+                <em>no alt attribute; the filename or URL may be read out instead</em>
               ) : entry.alt === '' ? (
                 <>
-                  <code>alt=&quot;&quot;</code> — correctly skipped as decoration
+                  <code>alt=&quot;&quot;</code>, correctly skipped as decoration
                 </>
               ) : (
                 <>&ldquo;{entry.alt}&rdquo;</>
@@ -182,25 +182,25 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
   );
 }
 
-const SOURCE = `{/* INFORMATIVE — the alt carries the information, not a
+const SOURCE = `{/* INFORMATIVE: the alt carries the information, not a
     description of the picture. */}
 <img src="q4-shipments.svg"
-     alt="Units shipped per quarter: Q1 400, Q2 580, Q3 760, Q4 900
-          — a steady rise across the year." />
+     alt="Units shipped per quarter: Q1 400, Q2 580, Q3 760, Q4 900,
+     a steady rise across the year." />
 
-{/* COMPLEX — when one sentence is not enough, put the real data
+{/* COMPLEX: when one sentence is not enough, put the real data
     next to it and point at it. */}
 <img src="revenue.svg" alt="Revenue by region, 2024. Full data in
                             the table below." />
 <table> … </table>
 
-{/* DECORATIVE — alt is PRESENT and EMPTY. Not missing. */}
+{/* DECORATIVE: alt is PRESENT and EMPTY. Not missing. */}
 <img src="flourish.svg" alt="" />
 
-{/* FUNCTIONAL — the image is inside a link or button, so the alt
+{/* FUNCTIONAL: the image is inside a link or button, so the alt
     describes the ACTION, not the picture. */}
 <a href="/"><img src="logo.svg" alt="Home"></a>
-{/* not alt="Company logo" — the user cannot "click a logo" */}
+{/* not alt="Company logo"; the user cannot "click a logo" */}
 
 {/* INLINE SVG, decorative */}
 <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16">…</svg>
@@ -211,7 +211,7 @@ const SOURCE = `{/* INFORMATIVE — the alt carries the information, not a
   …
 </svg>
 
-{/* TEXT IN IMAGES — SC 1.4.5 Images of Text (AA) says use real
+{/* TEXT IN IMAGES: SC 1.4.5 Images of Text (AA) says use real
     text unless the presentation is essential (logotypes are the
     main exemption). Real text also zooms, reflows, translates,
     and can be selected. */}
@@ -228,7 +228,7 @@ const SOURCE = `{/* INFORMATIVE — the alt carries the information, not a
 
 /**
  * Registry entry for the alternative-text pattern. Note that the broken variant fails in
- * *both* directions at once — an informative chart loses its `alt` entirely while a purely
+ * *both* directions at once: an informative chart loses its `alt` entirely while a purely
  * decorative flourish gains a loving description. Only showing the missing-alt half would
  * teach half the rule; the cost of over-describing is a screen-reader user wading through
  * narration of things that carry no information.
@@ -249,7 +249,7 @@ export const imagesIconsPattern: PatternMeta = {
       name: 'Non-text Content',
       level: 'A',
       since: '2.0',
-      why: 'All non-text content needs a text alternative serving an equivalent purpose — except when it is pure decoration, in which case it must be implemented so assistive technology ignores it. Both halves of that sentence are in the criterion.',
+      why: 'All non-text content needs a text alternative serving an equivalent purpose, except when it is pure decoration, in which case it must be implemented so assistive technology ignores it. Both halves of that sentence are in the criterion.',
     },
     {
       number: '1.4.5',
@@ -267,17 +267,17 @@ export const imagesIconsPattern: PatternMeta = {
     },
   ],
   section508:
-    'SC 1.1.1 and 1.4.5 are WCAG 2.0 A/AA criteria, incorporated by E205.4. As with tables, there is history worth knowing: the ORIGINAL 1998 standard stated this directly at §1194.22(a) — "A text equivalent for every non-text element shall be provided" — and that provision was superseded by the 2017 refresh. Chapter 3 Functional Performance Criteria 302.1 Without Vision and 302.2 With Limited Vision apply. SC 1.4.11 is WCAG 2.1 and therefore outside the 508 reference.',
+    'SC 1.1.1 and 1.4.5 are WCAG 2.0 A/AA criteria, incorporated by E205.4. As with tables, there is history worth knowing: the ORIGINAL 1998 standard stated this directly at §1194.22(a), "A text equivalent for every non-text element shall be provided", and that provision was superseded by the 2017 refresh. Chapter 3 Functional Performance Criteria 302.1 Without Vision and 302.2 With Limited Vision apply. SC 1.4.11 is WCAG 2.1 and therefore outside the 508 reference.',
   howToTest: {
     keyboard: [
-      'Images are not focusable, so a keyboard test finds nothing here — as with tables, that is the point worth internalising.',
+      'Images are not focusable, so a keyboard test finds nothing here; as with tables, that is the point worth internalising.',
       'One keyboard-adjacent check: an inline SVG inside a link or button must not become its own tab stop. focusable="false" prevents that in legacy engines.',
     ],
     screenReader: [
-      'Accessible chart: "Units shipped per quarter: Q1 400, Q2 580, Q3 760, Q4 900 — a steady rise across the year, image."',
+      'Accessible chart: "Units shipped per quarter: Q1 400, Q2 580, Q3 760, Q4 900, a steady rise across the year, image."',
       'Accessible flourish: complete silence, which is correct.',
       'Broken chart: the data URI read aloud as a stream of characters, or simply "image".',
-      'Broken flourish: "Blue decorative swoosh divider graphic, image" — on every page, forever.',
+      'Broken flourish: "Blue decorative swoosh divider graphic, image", on every page, forever.',
       'Quick manual audit in any browser: disable images (Chrome: Settings → Site settings → Images) and read the page. What you can still understand is what a screen-reader user gets.',
     ],
   },

@@ -2,13 +2,13 @@
  * The site sidebar: page navigation plus the pattern filter.
  *
  * Worth reading as a pattern in its own right even though it has no card on the patterns
- * page — it is the only place on the site where a *second* navigation landmark and a
+ * page: it is the only place on the site where a *second* navigation landmark and a
  * live-filtered list appear together, and both are things that are routinely got wrong in
  * application chrome. The per-decision reasoning is on the component below.
  *
  * The filtering itself is deliberately not implemented here. `App` owns the query string
  * and passes down the already-matched list, so the sidebar count and the rendered cards
- * can never disagree — a count that says "3 of 16 match" beside a list showing something
+ * can never disagree: a count that says "3 of 16 match" beside a list showing something
  * else is worse than no count, because the `role="status"` region would be announcing a
  * number that is not true.
  */
@@ -39,7 +39,7 @@ const PAGES: ReadonlyArray<{ name: RouteName; label: string }> = [
  *    must label each one, or a screen-reader user hears "navigation, navigation,
  *    navigation" in the landmark list and has to guess. (SC 1.3.1 Info and
  *    Relationships, A; the labelling itself is an ARIA practice rather than a criterion.)
- *  - The current page link carries `aria-current="page"` — the programmatic equivalent of
+ *  - The current page link carries `aria-current="page"`, the programmatic equivalent of
  *    the bold styling. Without it, "which page am I on" is conveyed by weight and colour
  *    alone.
  *  - The search input is `type="search"` with a real `<label>`, not a placeholder. A

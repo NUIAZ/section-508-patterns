@@ -12,8 +12,8 @@ import type { ComponentType } from 'react';
 /** WCAG conformance levels. Section 508 requires A and AA; AAA is aspirational. */
 export type WcagLevel = 'A' | 'AA' | 'AAA';
 
-/** Which version of WCAG first introduced a success criterion. This matters legally —
- *  see {@link PatternMeta.section508} — so it is modelled rather than written in prose. */
+/** Which version of WCAG first introduced a success criterion. This matters legally;
+ *  see {@link PatternMeta.section508}, so it is modelled rather than written in prose. */
 export type WcagVersion = '2.0' | '2.1' | '2.2';
 
 /**
@@ -22,7 +22,7 @@ export type WcagVersion = '2.0' | '2.1' | '2.2';
  * Number, name, level and version are carried together and repeated at every citation
  * rather than looked up from a central table. That is a deliberate trade: it means the
  * same criterion appears many times across the registry, and a test asserts that every
- * copy agrees — so a typo in "2.4.7 Focus Visible, AA" fails the build instead of quietly
+ * copy agrees: so a typo in "2.4.7 Focus Visible, AA" fails the build instead of quietly
  * teaching a reader the wrong level.
  *
  * `why` carries the actual editorial weight. A criterion number with no explanation is a
@@ -49,8 +49,8 @@ export interface WcagCriterion {
  * unreachable controls and lost focus; it will happily pass an icon button with no
  * accessible name, which only a screen reader (or the accessibility tree) exposes.
  *
- * Both arrays are phrased as *observable* steps and outcomes — "press Tab, focus should
- * land on the Close button" — so that a reader can disagree with the site if the behaviour
+ * Both arrays are phrased as *observable* steps and outcomes: "press Tab, focus should
+ * land on the Close button", so that a reader can disagree with the site if the behaviour
  * in front of them differs. Aspirational prose would not survive that test.
  */
 export interface HowToTest {
@@ -64,7 +64,7 @@ export interface HowToTest {
  * Props every demo component receives.
  *
  * A single component renders both variants so that the broken version is guaranteed to be
- * the *same component* with the accessibility affordances removed — not a separate lookalike
+ * the *same component* with the accessibility affordances removed, not a separate lookalike
  * that quietly differs in other ways.
  */
 export interface DemoProps {
@@ -74,7 +74,7 @@ export interface DemoProps {
 }
 
 /**
- * Everything the site knows about one pattern — the unit the whole application is built
+ * Everything the site knows about one pattern: the unit the whole application is built
  * from. The sidebar, search index, checklist cross-links, pattern cards and test suite all
  * read from these objects; nothing about a pattern lives anywhere else.
  *
@@ -97,7 +97,7 @@ export interface PatternMeta {
   /**
    * How the pattern maps to the Revised Section 508 Standards (2017, compliance date
    * 2018-01-18). The Revised Standards do not restate WCAG criteria with their own
-   * numbers — they *incorporate WCAG 2.0 Level A and AA by reference* (E205.4 for
+   * numbers: they *incorporate WCAG 2.0 Level A and AA by reference* (E205.4 for
    * electronic content, 502/503 and E207.2 for software). So this field names the 508
    * provision that pulls the criterion in, plus any relevant Chapter 3 Functional
    * Performance Criteria, rather than inventing a "508 provision number" per pattern.

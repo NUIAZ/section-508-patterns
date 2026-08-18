@@ -17,7 +17,7 @@ import {
  * and sites that offer a toggle but forget it make that person re-do the work on every
  * page load.
  *
- * There is no WCAG success criterion that says "offer a dark mode" — claiming otherwise
+ * There is no WCAG success criterion that says "offer a dark mode"; claiming otherwise
  * would be inventing a requirement. What the criteria do require is that whatever theme is
  * showing meets 1.4.3 Contrast (Minimum) (AA), which is why both palettes in `theme.css`
  * are checked against 4.5:1 for body text.
@@ -27,7 +27,7 @@ import {
 export type ThemeChoice = 'system' | 'light' | 'dark';
 
 /**
- * What is actually painted — `ThemeChoice` with `'system'` already resolved against
+ * What is actually painted: `ThemeChoice` with `'system'` already resolved against
  * `prefers-color-scheme`. Kept as a separate type so the compiler stops anyone stamping a
  * literal `"system"` onto `<html data-theme>`, which would match no palette in the CSS and
  * silently render unstyled colours.
@@ -72,7 +72,7 @@ function readSystemTheme(): ResolvedTheme {
  * and keeps the page readable even if this script never runs.
  *
  * Note that it re-renders on OS theme changes, so anything expensive under it should be
- * memoised — the context value already is.
+ * memoised: the context value already is.
  */
 export function ThemeProvider({ children }: { children: ReactNode }): ReactNode {
   const [choice, setChoiceState] = useState<ThemeChoice>(readStoredChoice);
@@ -126,7 +126,7 @@ export function ThemeProvider({ children }: { children: ReactNode }): ReactNode 
 /**
  * Read and change the theme from inside the tree.
  *
- * Throws — rather than returning a plausible default — when there is no provider above it.
+ * Throws (rather than returning a plausible default) when there is no provider above it.
  * A silent fallback would let a component render against one palette while the document
  * carries another, and the failure mode of that is unreadable text, which is precisely the
  * outcome the contrast work elsewhere in this repo exists to prevent. Fail at mount, loudly.
@@ -143,7 +143,7 @@ export function useTheme(): ThemeContextValue {
  * Read `prefers-reduced-motion` reactively.
  *
  * Exported from here rather than from the reduced-motion pattern file because the site
- * shell uses it too — the route-change focus scroll is instant for these visitors.
+ * shell uses it too: the route-change focus scroll is instant for these visitors.
  */
 export function usePrefersReducedMotion(): boolean {
   const [reduced, setReduced] = useState<boolean>(() => {

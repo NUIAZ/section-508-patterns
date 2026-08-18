@@ -10,15 +10,15 @@ const WARN_AT_SECONDS = 12;
  *
  * A short demo timer stands in for a twenty-minute session. The mechanics are identical:
  *
- *   Accessible — warn well before the deadline, in a dialog that takes focus and announces
+ *   Accessible: warn well before the deadline, in a dialog that takes focus and announces
  *   itself, offer at least a 20× extension with a simple action, and never destroy the
  *   user's work without asking.
  *
- *   Broken — expire silently and wipe the form. Which is what happens on a great many
+ *   Broken: expire silently and wipe the form, which is what happens on a great many
  *   government and banking sites today.
  *
  * A note on criterion numbering, because the brief that prompted this site cited "1.4.13":
- * SC 1.4.13 is **Content on Hover or Focus** and is about tooltips and popovers — nothing
+ * SC 1.4.13 is **Content on Hover or Focus** and is about tooltips and popovers, nothing
  * to do with session limits. The criterion for timeouts is **SC 2.2.1 Timing Adjustable
  * (Level A)**, with SC 2.2.6 Timeouts (Level AAA) covering the specific case of warning
  * about data loss. Getting this right matters more than being agreeable about it.
@@ -97,7 +97,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
         </button>
       </div>
 
-      {/* The countdown itself must NOT be a live region — announcing every second would
+      {/* The countdown itself must NOT be a live region; announcing every second would
           make the page unusable. role="timer" exists and is deliberately silent by
           default. We announce only at the thresholds that matter. */}
       <p role="timer" aria-live="off" style={{ fontWeight: 700, marginBlockStart: '0.75rem' }}>
@@ -123,7 +123,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
         <p role="alert" style={{ color: 'var(--danger)', fontWeight: 700 }}>
           {broken
             ? '✕ Session expired. Your draft was discarded without warning.'
-            : '✕ Session expired. Your draft is still here — nothing was destroyed.'}
+            : '✕ Session expired. Your draft is still here, nothing was destroyed.'}
         </p>
       ) : null}
 
@@ -183,15 +183,15 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 
 const SOURCE = `/* SC 2.2.1 Timing Adjustable (Level A) is satisfied if ANY ONE of
    these is true:
-     • TURN OFF   — the user can switch the limit off before meeting it
-     • ADJUST     — the user can extend it to at least 10× the default
-     • EXTEND     — the user is warned before it expires, told simply
+     • TURN OFF: the user can switch the limit off before meeting it
+     • ADJUST: the user can extend it to at least 10× the default
+     • EXTEND: the user is warned before it expires, told simply
                     how to extend (e.g. "press the space bar"), and
                     can extend at least 10 times
-     • REAL-TIME  — the limit is essential to a real-time event
+     • REAL-TIME: the limit is essential to a real-time event
                     (an auction, a live exam)
-     • ESSENTIAL  — extending would invalidate the activity
-     • 20 HOURS   — the limit is longer than 20 hours
+     • ESSENTIAL: extending would invalidate the activity
+     • 20 HOURS: the limit is longer than 20 hours
 
    Session security limits are NOT automatically "essential". The
    standard accessible answer is the warn-and-extend pattern below. */
@@ -223,7 +223,7 @@ useEffect(() => {
 
 {/* The countdown itself must NOT be a live region. Announcing every
     second makes the page unusable with a screen reader. role="timer"
-    is silent by default — announce only at the thresholds. */}
+    is silent by default: announce only at the thresholds. */}
 <p role="timer" aria-live="off">Session ends in {mm}:{ss}</p>
 
 /* Two more rules that cost nothing:
@@ -231,25 +231,25 @@ useEffect(() => {
        Re-authenticating (AAA) asks for exactly this, and it is the
        difference between an annoyance and a lost afternoon.
      • WARN EARLY ENOUGH to be actionable. A screen-reader user needs
-       to hear the announcement, find the dialog, and read the options
-       — 20 seconds is not enough.
+       to hear the announcement, find the dialog, and read the options;
+       20 seconds is not enough.
 
 /* Criterion numbering, stated correctly:
      SC 2.2.1 Timing Adjustable        A    ← the timeout criterion
      SC 2.2.3 No Timing                AAA  no time limits at all
      SC 2.2.5 Re-authenticating        AAA  resume without data loss
      SC 2.2.6 Timeouts                 AAA  warn about data-loss limits
-     SC 1.4.13 Content on Hover/Focus  AA   tooltips and popovers —
+     SC 1.4.13 Content on Hover/Focus  AA   tooltips and popovers,
                                             NOT about session limits,
                                             despite being frequently
                                             cited that way. */`;
 
 /**
  * Registry entry for the session-timeout pattern. The demo runs on a compressed clock so
- * the expiry is observable in a browser rather than described — the broken variant simply
+ * the expiry is observable in a browser rather than described; the broken variant simply
  * clears the textarea with no warning, no dialog and nothing announced.
  *
- * Claims SC 2.2.1 Timing Adjustable (A) — the warning and the means to extend — SC 4.1.3
+ * Claims SC 2.2.1 Timing Adjustable (A), the warning and the means to extend. SC 4.1.3
  * Status Messages (AA, WCAG 2.1) for announcing the warning without stealing focus, and
  * SC 2.2.6 Timeouts (AAA, WCAG 2.1) for telling the user the limit up front.
  *
@@ -269,7 +269,7 @@ export const timeoutsPattern: PatternMeta = {
       name: 'Timing Adjustable',
       level: 'A',
       since: '2.0',
-      why: 'The criterion that actually governs timeouts. A time limit must be able to be turned off, adjusted to 10× the default, or extended after a warning — with at least ten extensions available.',
+      why: 'The criterion that actually governs timeouts. A time limit must be able to be turned off, adjusted to 10× the default, or extended after a warning, with at least ten extensions available.',
     },
     {
       number: '4.1.3',
@@ -283,18 +283,18 @@ export const timeoutsPattern: PatternMeta = {
       name: 'Timeouts',
       level: 'AAA',
       since: '2.1',
-      why: 'Users must be warned about the duration of any inactivity that could cause data loss, unless the data is preserved for more than 20 hours. Level AAA — so preserving the draft is best practice, not a conformance requirement.',
+      why: 'Users must be warned about the duration of any inactivity that could cause data loss, unless the data is preserved for more than 20 hours. Level AAA, so preserving the draft is best practice, not a conformance requirement.',
     },
   ],
   section508:
-    'SC 2.2.1 Timing Adjustable is WCAG 2.0 Level A and is incorporated by E205.4, so a warn-and-extend flow is a genuine Section 508 requirement — one of the more commonly missed ones in agency applications. SC 4.1.3 and SC 2.2.6 are both WCAG 2.1 additions (and 2.2.6 is AAA on top of that), so neither is a 508 requirement. Functional Performance Criteria 302.7 With Limited Manipulation and 302.9 With Limited Language, Cognitive, and Learning Abilities are the ones that explain why the extra time matters: they describe the users for whom every interaction simply takes longer.',
+    'SC 2.2.1 Timing Adjustable is WCAG 2.0 Level A and is incorporated by E205.4, so a warn-and-extend flow is a genuine Section 508 requirement, one of the more commonly missed ones in agency applications. SC 4.1.3 and SC 2.2.6 are both WCAG 2.1 additions (and 2.2.6 is AAA on top of that), so neither is a 508 requirement. Functional Performance Criteria 302.7 With Limited Manipulation and 302.9 With Limited Language, Cognitive, and Learning Abilities are the ones that explain why the extra time matters: they describe the users for whom every interaction simply takes longer.',
   howToTest: {
     keyboard: [
       'Press Enter on "Start the session timer" and wait about 18 seconds without touching anything.',
       'In the accessible version a warning dialog appears and focus moves into it automatically.',
-      'Press Escape — that counts as "keep working" and resets the clock.',
+      'Press Escape: that counts as "keep working" and resets the clock.',
       'Start it again and let it run out. In the accessible version your draft survives; in the broken version the textarea is emptied without warning.',
-      'Check that "Keep working" is reachable and operable without a mouse — a warning you cannot dismiss from the keyboard is no warning at all.',
+      'Check that "Keep working" is reachable and operable without a mouse; a warning you cannot dismiss from the keyboard is no warning at all.',
     ],
     screenReader: [
       'Accessible: "Your session is about to end, alert dialog. You will be signed out in 12 seconds and your draft will be lost."',

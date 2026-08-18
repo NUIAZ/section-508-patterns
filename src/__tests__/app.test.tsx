@@ -26,7 +26,7 @@ describe('the site shell', () => {
     const skipLinks = screen.getAllByRole('link', { name: /skip to main content/i });
     const skipLink = skipLinks[0];
 
-    // "First focusable element" is the whole requirement — a skip link three stops in is
+    // "First focusable element" is the whole requirement; a skip link three stops in is
     // not a skip link.
     const firstAnchor = document.querySelector('a');
     expect(firstAnchor).toBe(skipLink);

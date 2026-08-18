@@ -72,7 +72,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 
       {open ? (
         <div
-          // The scrim. Clicking it closes the dialog in the accessible version — a
+          // The scrim. Clicking it closes the dialog in the accessible version, a
           // convenience, not a substitute for Escape, because a keyboard user cannot
           // click a backdrop.
           style={{
@@ -280,7 +280,7 @@ export const focusTrapPattern: PatternMeta = {
     },
   ],
   section508:
-    'E205.4 incorporates WCAG 2.0 A and AA, covering all four criteria above. Chapter 3 Functional Performance Criteria 302.1 (Without Vision) is the one this pattern speaks to most directly: without the role, the name, and the focus move, a blind user has no way to know a modal opened at all. Note that the Revised Standards also apply to software user interfaces via 502 and 503 — the same dialog rules apply in a desktop or mobile app, not just on the web.',
+    'E205.4 incorporates WCAG 2.0 A and AA, covering all four criteria above. Chapter 3 Functional Performance Criteria 302.1 (Without Vision) is the one this pattern speaks to most directly: without the role, the name, and the focus move, a blind user has no way to know a modal opened at all. Note that the Revised Standards also apply to software user interfaces via 502 and 503; the same dialog rules apply in a desktop or mobile app, not just on the web.',
   howToTest: {
     keyboard: [
       'Tab to "Delete this project…" and press Enter.',
@@ -291,7 +291,7 @@ export const focusTrapPattern: PatternMeta = {
       'Now switch to Broken and repeat: after two Tab presses you are in the background form, invisibly.',
     ],
     screenReader: [
-      '"Delete project?, dialog" — the name and the role, together, on open.',
+      '"Delete project?, dialog", the name and the role, together, on open.',
       'Then the description, then "Delete, button".',
       'Browsing with the virtual cursor should stay inside the dialog; aria-modal="true" is what confines it.',
       'In the broken version you hear the previous button still focused, and nothing announces that anything opened.',

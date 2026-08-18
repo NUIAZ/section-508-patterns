@@ -4,7 +4,7 @@
  *
  * The ordering is the argument. Techniques are presented by how much you learn per minute
  * spent, which puts the free ones that need no software first and the automated scanner
- * last — the opposite of the order most teams adopt them in.
+ * last: the opposite of the order most teams adopt them in.
  *
  * The screen-reader key table below is static prose, not something the site can verify.
  * Shortcuts drift between versions and are remapped by users, so treat it as a starting
@@ -118,7 +118,7 @@ export function TestingPage(): ReactNode {
       <h3 id="keyboard">1. The keyboard-only walkthrough</h3>
       <p>
         Costs nothing, needs no software, and finds a disproportionate share of real
-        problems. Physically move your hand off the mouse — the temptation to grab it when
+        problems. Physically move your hand off the mouse; the temptation to grab it when
         you get stuck is the whole test.
       </p>
       <ol>
@@ -172,7 +172,7 @@ export function TestingPage(): ReactNode {
           Set the browser window to 1280 CSS pixels wide and press <kbd>Ctrl</kbd>+
           <kbd>+</kbd> (<kbd>Cmd</kbd>+<kbd>+</kbd> on macOS) until you reach 400%. That is
           the 320px reflow target from SC 1.4.10. There must be no horizontal page
-          scrollbar — data tables and complex diagrams excepted.
+          scrollbar: data tables and complex diagrams excepted.
         </li>
         <li>
           Separately, raise <em>text size only</em> to 200% (Firefox: View → Zoom → Zoom
@@ -239,7 +239,7 @@ export function TestingPage(): ReactNode {
         </table>
       </div>
       <p className="hint">
-        &ldquo;VO&rdquo; is the VoiceOver modifier — <kbd>Ctrl</kbd>+<kbd>Option</kbd> by
+        &ldquo;VO&rdquo; is the VoiceOver modifier, <kbd>Ctrl</kbd>+<kbd>Option</kbd> by
         default. NVDA&rsquo;s and JAWS&rsquo;s modifier is <kbd>Insert</kbd> (or{' '}
         <kbd>Caps Lock</kbd> in laptop layout). The single most useful trick for a
         developer is the speech viewer / speech history: it prints what was announced as
@@ -267,11 +267,11 @@ export function TestingPage(): ReactNode {
       </ol>
 
       {/* ── AUTOMATED ────────────────────────────────────────────────────── */}
-      <h3 id="automated">4. Automated tools — and what they cannot see</h3>
+      <h3 id="automated">4. Automated tools, and what they cannot see</h3>
       <p className="note note-warning">
         <strong>The number that matters:</strong> automated accessibility testing detects
         roughly a third of WCAG issues. Published figures vary with methodology and with
-        who is publishing them — vendor studies that include guided manual steps report
+        who is publishing them: vendor studies that include guided manual steps report
         higher, and independent audits of automated-only scanning often report lower.
         Treat &ldquo;about a third&rdquo; as an order of magnitude, not a measurement. The
         important half of the sentence is the other one:{' '}
@@ -317,7 +317,7 @@ export function TestingPage(): ReactNode {
             <tr>
               <th scope="row">WAVE (browser extension)</th>
               <td>
-                Structure visualised in place — headings, landmarks, alt text, contrast,
+                Structure visualised in place: headings, landmarks, alt text, contrast,
                 overlaid on the real page. Excellent for a fast eyeball.
               </td>
               <td>Anything requiring interaction: dialogs, menus, async states.</td>
@@ -325,7 +325,7 @@ export function TestingPage(): ReactNode {
             <tr>
               <th scope="row">HTML validator</th>
               <td>
-                Duplicate ids, mis-nested elements, and broken attribute syntax — all of
+                Duplicate ids, mis-nested elements, and broken attribute syntax, all of
                 which quietly corrupt the accessibility tree.
               </td>
               <td>Everything semantic.</td>
@@ -334,7 +334,7 @@ export function TestingPage(): ReactNode {
               <th scope="row">Browser accessibility tree (devtools)</th>
               <td>
                 The authoritative answer to &ldquo;what is this control&rsquo;s name and
-                role?&rdquo; — better than guessing from the markup.
+                role?&rdquo;, better than guessing from the markup.
               </td>
               <td>Behaviour over time; anything about focus movement.</td>
             </tr>
@@ -342,7 +342,7 @@ export function TestingPage(): ReactNode {
               <th scope="row">A keyboard and ten minutes</th>
               <td>
                 Focus traps, missing focus indicators, unreachable controls, illogical tab
-                order, dialogs that leak — most of the highest-severity issues.
+                order, dialogs that leak, most of the highest-severity issues.
               </td>
               <td>Naming, alt text quality, announcement quality.</td>
             </tr>
@@ -358,7 +358,7 @@ export function TestingPage(): ReactNode {
         </li>
         <li>
           <strong>Automate:</strong> focus behaviour. Focus traps, focus restoration, and
-          roving tabindex are all testable in jsdom — see this project&rsquo;s test suite.
+          roving tabindex are all testable in jsdom; see this project&rsquo;s test suite.
         </li>
         <li>
           <strong>Do not pretend to automate:</strong> whether the alt text is correct,
@@ -371,26 +371,26 @@ export function TestingPage(): ReactNode {
       <h3 id="further">Primary sources</h3>
       <ul>
         <li>
-          W3C — <em>Web Content Accessibility Guidelines (WCAG) 2.1</em>, and the{' '}
+          W3C: <em>Web Content Accessibility Guidelines (WCAG) 2.1</em>, and the{' '}
           <em>Understanding</em> and <em>Techniques</em> documents that accompany each
           criterion. The <em>Understanding</em> pages are where the actual answers are.
         </li>
         <li>
-          U.S. Access Board — <em>Revised Section 508 Standards and Section 255
+          U.S. Access Board: <em>Revised Section 508 Standards and Section 255
           Guidelines</em> (published 2017, compliance date 18 January 2018). E205.4 is the
           provision that incorporates WCAG 2.0 Level A and AA for electronic content;
           Chapter 3 holds the Functional Performance Criteria.
         </li>
         <li>
-          W3C — <em>ARIA Authoring Practices Guide</em>, for the keyboard model of every
+          W3C: <em>ARIA Authoring Practices Guide</em>, for the keyboard model of every
           composite widget.
         </li>
         <li>
-          U.S. Department of Justice — the 2024 ADA Title II web and mobile accessibility
+          U.S. Department of Justice: the 2024 ADA Title II web and mobile accessibility
           rule, which adopts WCAG 2.1 Level AA for state and local government.
         </li>
         <li>
-          WebAIM — the annual <em>WebAIM Million</em> survey of the top million home pages,
+          WebAIM: the annual <em>WebAIM Million</em> survey of the top million home pages,
           and the periodic screen reader user surveys.
         </li>
       </ul>

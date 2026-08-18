@@ -6,7 +6,7 @@ type Phase = 'idle' | 'loading' | 'done' | 'failed';
 /**
  * Live regions.
  *
- * The demo runs a fake async save so the announcement is genuinely asynchronous — which is
+ * The demo runs a fake async save so the announcement is genuinely asynchronous, which is
  * the only case live regions exist for. If the update happens as a direct result of the
  * user's own keypress on the control they are focused on, focus management is usually the
  * better answer.
@@ -19,7 +19,7 @@ type Phase = 'idle' | 'loading' | 'done' | 'failed';
  * already be in the DOM before its content changes.** Assistive technology subscribes to
  * mutations of existing live regions. Mount the region and its text in the same tick and
  * many screen readers announce nothing at all. That is why the containers below are
- * always rendered and only their text changes — and why the broken variant mounts them on
+ * always rendered and only their text changes, and why the broken variant mounts them on
  * demand, which is the second-most-common way this goes wrong.
  */
 function Demo({ broken, idPrefix }: DemoProps): ReactNode {
@@ -119,7 +119,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
               data-testid={`${idPrefix}-alert`}
               // role="alert" implies aria-live="assertive". Reserve it for things the user
               // must know immediately: errors, session expiry, data loss. Overusing
-              // assertive makes a screen reader unusable — every announcement stomps the
+              // assertive makes a screen reader unusable; every announcement stomps the
               // last one.
               role="alert"
               aria-live="assertive"
@@ -183,7 +183,7 @@ export const liveRegionsPattern: PatternMeta = {
   id: 'live-regions',
   title: 'Live regions for async status',
   problem:
-    'Something finished, failed, or changed count — and the only evidence is a piece of text that appeared somewhere the user is not looking. Sighted users catch it peripherally. A screen-reader user, whose attention is wherever their cursor is, is told nothing at all.',
+    'Something finished, failed, or changed count, and the only evidence is a piece of text that appeared somewhere the user is not looking. Sighted users catch it peripherally. A screen-reader user, whose attention is wherever their cursor is, is told nothing at all.',
   keywords: [
     'aria-live',
     'polite',
@@ -206,7 +206,7 @@ export const liveRegionsPattern: PatternMeta = {
       name: 'Error Identification',
       level: 'A',
       since: '2.0',
-      why: 'When the failure above is an input error, it must additionally be identified and described in text — which the assertive region does.',
+      why: 'When the failure above is an input error, it must additionally be identified and described in text, which the assertive region does.',
     },
     {
       number: '1.4.1',
@@ -217,22 +217,22 @@ export const liveRegionsPattern: PatternMeta = {
     },
   ],
   section508:
-    'This is the clearest example on the site of a version boundary that matters. SC 4.1.3 Status Messages is NEW in WCAG 2.1, so it is not incorporated by the 2017 Revised Section 508 Standards, which reference WCAG 2.0 Level A and AA via E205.4. Claiming "508 requires aria-live" would be wrong. What is true: 4.1.3 is required by WCAG 2.1 AA, by EN 301 549, and by the U.S. DOJ ADA Title II rule (2024) for state and local government. Under 508 alone, the closest binding hooks are Chapter 3 Functional Performance Criteria 302.1 Without Vision and 302.2 With Limited Vision — an unannounced status message means the information simply is not available to those users.',
+    'This is the clearest example on the site of a version boundary that matters. SC 4.1.3 Status Messages is NEW in WCAG 2.1, so it is not incorporated by the 2017 Revised Section 508 Standards, which reference WCAG 2.0 Level A and AA via E205.4. Claiming "508 requires aria-live" would be wrong. What is true: 4.1.3 is required by WCAG 2.1 AA, by EN 301 549, and by the U.S. DOJ ADA Title II rule (2024) for state and local government. Under 508 alone, the closest binding hooks are Chapter 3 Functional Performance Criteria 302.1 Without Vision and 302.2 With Limited Vision; an unannounced status message means the information simply is not available to those users.',
   howToTest: {
     keyboard: [
       'Activate "Save (polite status)" with Enter and leave focus on the button.',
-      'The text below changes to "Saving…" and then "Saved. 3 records updated." — with no focus movement at all. That is the point: focus stays put.',
+      'The text below changes to "Saving…" and then "Saved. 3 records updated.", with no focus movement at all. That is the point: focus stays put.',
       'Activate the upload button and note the alert appears the same way.',
     ],
     screenReader: [
       'Accessible version: after pressing Save you hear "Saving…", then, about a second later, "Saved. 3 records updated." without touching anything.',
       'The assertive alert should cut in over whatever is being spoken.',
       'Broken version: total silence. The text is on the screen and is not in any live region, so nothing is ever announced.',
-      'NVDA tip: use the speech viewer (NVDA menu → Tools → Speech Viewer) to see announcements as text — much faster than listening while you iterate.',
+      'NVDA tip: use the speech viewer (NVDA menu → Tools → Speech Viewer) to see announcements as text, much faster than listening while you iterate.',
     ],
   },
   source: SOURCE,
   brokenBehaviour:
-    'Both regions lose their role and aria-live attributes, and they are only mounted once there is a message — so even a screen reader that polls would have nothing to subscribe to. The text is visible and completely silent.',
+    'Both regions lose their role and aria-live attributes, and they are only mounted once there is a message, so even a screen reader that polls would have nothing to subscribe to. The text is visible and completely silent.',
   Demo,
 };

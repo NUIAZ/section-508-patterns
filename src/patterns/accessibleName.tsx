@@ -2,18 +2,18 @@
  * Pattern: accessible names for icon-only controls.
  *
  * The pattern is giving every control a text name that assistive technology can read, even
- * when nothing about it is text — via `aria-label`, visually hidden text, or a `<title>`
- * inside an SVG — and marking the decorative glyph `aria-hidden` so it does not compete.
+ * when nothing about it is text, via `aria-label`, visually hidden text, or a `<title>`
+ * inside an SVG, and marking the decorative glyph `aria-hidden` so it does not compete.
  *
  * What breaks without it: a toolbar of pictograms announces as "button, button, button,
  * button". The control is still reachable and still clickable, so it survives a keyboard
  * sweep and often survives an automated scan too; it is simply unusable by anyone who
  * cannot see the icon, and unspeakable by anyone driving the page with their voice.
  *
- * Criteria demonstrated: SC 4.1.2 Name, Role, Value (Level A) — the direct failure, a
- * component with a role and no name; SC 1.1.1 Non-text Content (Level A) — the icon is
+ * Criteria demonstrated: SC 4.1.2 Name, Role, Value (Level A), the direct failure, a
+ * component with a role and no name; SC 1.1.1 Non-text Content (Level A), the icon is
  * non-text content carrying the control's purpose; SC 2.5.3 Label in Name (Level A, added
- * in WCAG 2.1) — the constraint on the fix, since a control that *does* have visible text
+ * in WCAG 2.1): the constraint on the fix, since a control that *does* have visible text
  * must keep that text inside its accessible name.
  *
  * The demo computes and displays each button's name after render, so the broken variant
@@ -72,7 +72,7 @@ function Demo({ broken }: DemoProps): ReactNode {
         {ACTIONS.map((action) =>
           broken ? (
             // BROKEN, and this is the exact shape the bug usually takes in real code:
-            // someone correctly marks the decorative icon aria-hidden — and then forgets to
+            // someone correctly marks the decorative icon aria-hidden, and then forgets to
             // add the label the icon was supposed to be hidden in favour of. The button now
             // has NO accessible name whatsoever and announces as "button".
             //
@@ -93,8 +93,8 @@ function Demo({ broken }: DemoProps): ReactNode {
               key={action.key}
               type="button"
               className="btn btn-small btn-icon"
-              // aria-label supplies the name. The alternative — a visually hidden <span>
-              // inside the button — is slightly more robust because it survives automatic
+              // aria-label supplies the name. The alternative, a visually hidden <span>
+              // inside the button, is slightly more robust because it survives automatic
               // page translation, which aria-label historically did not. Both are correct.
               aria-label={action.label}
               onClick={() => setPressed(action.label)}
@@ -124,7 +124,7 @@ function Demo({ broken }: DemoProps): ReactNode {
           {names.map((name, index) => (
             <li key={index}>
               {name === '' ? (
-                <em>(no accessible name — announced as just &ldquo;button&rdquo;)</em>
+                <em>(no accessible name, announced as just &ldquo;button&rdquo;)</em>
               ) : (
                 <code>{name}</code>
               )}
@@ -136,12 +136,12 @@ function Demo({ broken }: DemoProps): ReactNode {
   );
 }
 
-const SOURCE = `{/* Option 1 — aria-label on the control, aria-hidden on the icon. */}
+const SOURCE = `{/* Option 1: aria-label on the control, aria-hidden on the icon. */}
 <button type="button" aria-label="Delete paragraph">
   <span aria-hidden="true">🗑</span>
 </button>
 
-{/* Option 2 — visually hidden real text. Slightly more robust:
+{/* Option 2: visually hidden real text. Slightly more robust:
     it survives machine translation of the page, and it appears in
     the DOM where a developer will actually notice it. */}
 <button type="button">
@@ -149,7 +149,7 @@ const SOURCE = `{/* Option 1 — aria-label on the control, aria-hidden on the i
   <span class="sr-only">Delete paragraph</span>
 </button>
 
-{/* Option 3 — an SVG that IS the content, named by <title>. */}
+{/* Option 3: an SVG that IS the content, named by <title>. */}
 <svg role="img" aria-labelledby="trash-title" width="16" height="16">
   <title id="trash-title">Delete paragraph</title>
   <path d="…" />
@@ -160,11 +160,11 @@ const SOURCE = `{/* Option 1 — aria-label on the control, aria-hidden on the i
 <button title="Delete">🗑</button>
 
 {/* WRONG: nothing at all. Announced as "button", or worse, as the
-    Unicode name of the emoji — "wastebasket, button". */}
+    Unicode name of the emoji: "wastebasket, button". */}
 <button>🗑</button>
 
 /* The .sr-only class this depends on. Note it is CLIPPED, not
-   display:none — display:none removes it from the accessibility
+   display:none; display:none removes it from the accessibility
    tree, which defeats the entire purpose. */
 .sr-only {
   position: absolute !important;
@@ -219,19 +219,19 @@ export const accessibleNamePattern: PatternMeta = {
     'SC 4.1.2 and 1.1.1 are WCAG 2.0 criteria, incorporated by E205.4 for content and by 502/503 for software interfaces. Chapter 3 applies too: 302.1 Without Vision (nothing to announce) and 302.9 With Limited Language, Cognitive, and Learning Abilities (a picture with no word is ambiguous for far more people than screen-reader users). SC 2.5.3 Label in Name is a WCAG 2.1 addition and so is not part of the 2017 Revised 508 Standards, though it is required by WCAG 2.1 AA.',
   howToTest: {
     keyboard: [
-      'Tab through the four toolbar buttons. They are reachable in both variants — this failure is invisible to a keyboard-only test.',
+      'Tab through the four toolbar buttons. They are reachable in both variants; this failure is invisible to a keyboard-only test.',
       'That is the lesson: keyboard operability and accessible naming are different problems, and passing one tells you nothing about the other.',
       'Compare the "Computed accessible names" list between the two variants.',
     ],
     screenReader: [
       'Accessible version: "Bold, button", "Italic, button", "Insert link, button", "Delete paragraph, button", "Undo, button".',
-      'Broken version: "button", "button", "button", "button" — four identical announcements, because the icon is aria-hidden and no label replaced it.',
+      'Broken version: "button", "button", "button", "button", four identical announcements, because the icon is aria-hidden and no label replaced it.',
       'The other common flavour, an exposed emoji with no label, announces the picture instead of the action: "wastebasket, button".',
-      'In browser devtools, open the Accessibility pane and look at the Name field for each button — that is the authoritative answer, not the helper on this page.',
+      'In browser devtools, open the Accessibility pane and look at the Name field for each button; that is the authoritative answer, not the helper on this page.',
     ],
   },
   source: SOURCE,
   brokenBehaviour:
-    'The first four buttons contain only an aria-hidden icon, with no aria-label and no visually hidden text — so they have no accessible name at all. The computed-names panel below shows exactly what is left for assistive technology to work with.',
+    'The first four buttons contain only an aria-hidden icon, with no aria-label and no visually hidden text, so they have no accessible name at all. The computed-names panel below shows exactly what is left for assistive technology to work with.',
   Demo,
 };

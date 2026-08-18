@@ -7,7 +7,7 @@ import { computeAccessibleName } from '../lib/focus';
  *
  * The accessible variant does something no static example can: it scans **this actual
  * page** and reports the landmarks and heading outline it finds. If the site ever
- * regresses — a second `<h1>`, an unlabelled `<nav>`, a skipped level — the panel says so,
+ * regresses (a second `<h1>`, an unlabelled `<nav>`, a skipped level), the panel says so,
  * in public, on the page. That felt like the only honest way to make this pattern
  * demonstrable rather than merely described.
  *
@@ -54,7 +54,7 @@ function landmarkRoleOf(element: HTMLElement): string | null {
   if (explicit !== null && LANDMARK_ROLES.includes(explicit)) return explicit;
 
   const tag = element.tagName.toLowerCase();
-  // A <header>, <footer> or <aside> nested inside a sectioning element is NOT a landmark —
+  // A <header>, <footer> or <aside> nested inside a sectioning element is NOT a landmark,
   // a very common source of "why does this page report four banners". `closest` includes
   // the element itself, so we look at the ancestors only.
   const nestedInSectioning =
@@ -211,9 +211,9 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
               <li key={index}>
                 <code>{landmark.role}</code>
                 {landmark.name === '' ? (
-                  <em> — unnamed</em>
+                  <em> (unnamed)</em>
                 ) : (
-                  <> — &ldquo;{landmark.name}&rdquo;</>
+                  <>: &ldquo;{landmark.name}&rdquo;</>
                 )}
               </li>
             ))}
@@ -276,7 +276,7 @@ const SOURCE = `<body>
   <footer> … </footer>                              {/* contentinfo */}
 </body>
 
-/* Implicit landmark roles — use the ELEMENT, not the role attribute,
+/* Implicit landmark roles: use the ELEMENT, not the role attribute,
    because the element also carries the browser behaviour:
 
      <header>   banner         (top level only)
@@ -293,14 +293,14 @@ const SOURCE = `<body>
      • Never skip a heading level going down (h2 → h4 is a failure of
        the outline, though WCAG does not name the skip itself).
      • Name every landmark you have more than one of.
-     • Do NOT put "Navigation" in aria-label on a <nav> — the role is
+     • Do NOT put "Navigation" in aria-label on a <nav>; the role is
        already announced. aria-label="Primary navigation" produces
        "Primary navigation navigation". Just "Primary".
      • Every visible piece of the page should be inside SOME landmark;
        content outside them is unreachable by landmark navigation. */`;
 
 /**
- * Registry entry for the headings-and-landmarks pattern — the structural navigation most
+ * Registry entry for the headings-and-landmarks pattern, the structural navigation most
  * screen-reader users actually rely on, and the thing a page of styled `<div>`s destroys
  * without changing a pixel.
  *
@@ -309,15 +309,15 @@ const SOURCE = `<body>
  * or `aria-label="Primary navigation"` on a `<nav>` announces as "Primary navigation
  * navigation".
  *
- * Claims SC 1.3.1 Info and Relationships (A), SC 2.4.1 Bypass Blocks (A) — landmarks and a
+ * Claims SC 1.3.1 Info and Relationships (A), SC 2.4.1 Bypass Blocks (A), landmarks and a
  * correct heading outline are two of the three accepted bypass mechanisms alongside a skip
- * link — SC 2.4.6 Headings and Labels (AA) and SC 2.4.10 Section Headings (AAA).
+ * link: SC 2.4.6 Headings and Labels (AA) and SC 2.4.10 Section Headings (AAA).
  */
 export const landmarksPattern: PatternMeta = {
   id: 'landmarks',
   title: 'Headings and landmarks',
   problem:
-    'Screen-reader users do not read pages top to bottom — they skim by heading and by landmark, the same way a sighted reader skims by looking. A page of unlabelled divs with font-size headings removes both. Surveys of screen-reader users have consistently put headings at the top of the list of how they find things on a page.',
+    'Screen-reader users do not read pages top to bottom; they skim by heading and by landmark, the same way a sighted reader skims by looking. A page of unlabelled divs with font-size headings removes both. Surveys of screen-reader users have consistently put headings at the top of the list of how they find things on a page.',
   keywords: ['h1', 'outline', 'main', 'nav', 'aside', 'banner', 'contentinfo', 'region', 'div soup'],
   criteria: [
     {
@@ -350,10 +350,10 @@ export const landmarksPattern: PatternMeta = {
     },
   ],
   section508:
-    'E205.4 incorporates WCAG 2.0 A and AA, which covers 1.3.1, 2.4.1 and 2.4.6. Note the honest boundary: SC 2.4.10 Section Headings is Level AAA, so neither WCAG AA nor Section 508 requires you to add headings that are not already there — they require that structure you do present visually is also present programmatically. Chapter 3 Functional Performance Criterion 302.1 Without Vision is the practical driver, and 302.9 (Limited Language, Cognitive, and Learning Abilities) benefits too, since a clear outline helps anyone who finds long prose hard going.',
+    'E205.4 incorporates WCAG 2.0 A and AA, which covers 1.3.1, 2.4.1 and 2.4.6. Note the honest boundary: SC 2.4.10 Section Headings is Level AAA, so neither WCAG AA nor Section 508 requires you to add headings that are not already there; they require that structure you do present visually is also present programmatically. Chapter 3 Functional Performance Criterion 302.1 Without Vision is the practical driver, and 302.9 (Limited Language, Cognitive, and Learning Abilities) benefits too, since a clear outline helps anyone who finds long prose hard going.',
   howToTest: {
     keyboard: [
-      'Headings and landmarks have no keyboard behaviour of their own — this is a structure problem a keyboard test cannot find.',
+      'Headings and landmarks have no keyboard behaviour of their own; this is a structure problem a keyboard test cannot find.',
       'The nearest keyboard proxy: press Tab from the top of the page and see whether a skip link offers to bypass the navigation.',
       'In Firefox or Chrome devtools, open the Accessibility tree and look at the top-level structure.',
     ],

@@ -25,7 +25,7 @@ describe('contrast maths', () => {
     expect(contrastRatio(black, white)).toBeCloseTo(21, 10);
   });
 
-  it('is symmetric — swapping foreground and background changes nothing', () => {
+  it('is symmetric: swapping foreground and background changes nothing', () => {
     expect(contrastRatio(black, white)).toBeCloseTo(contrastRatio(white, black), 10);
   });
 
@@ -82,7 +82,7 @@ describe('contrast maths', () => {
 
   it('floors the displayed ratio rather than rounding it up', () => {
     const verdict = evaluateContrast({ r: 119, g: 119, b: 119 }, { r: 255, g: 255, b: 255 });
-    // 4.4787… must display as 4.47, never as 4.48 and certainly never as "4.5 — passes".
+    // 4.4787… must display as 4.47, never as 4.48 and certainly never as "4.5, passes".
     expect(verdict.displayRatio).toBe('4.47');
     expect(verdict.aaNormal).toBe(false);
   });

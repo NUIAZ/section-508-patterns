@@ -27,7 +27,7 @@ describe('skip link demo', () => {
   it('the broken variant hides the link from the accessibility tree entirely', () => {
     render(<skipLinkPattern.Demo broken idPrefix="sb" />);
 
-    // display:none means it is neither announced nor focusable — a scanner that only
+    // display:none means it is neither announced nor focusable; a scanner that only
     // checks "does a skip link exist in the HTML" would still be satisfied.
     expect(screen.queryByRole('link', { name: /skip to main content/i })).not.toBeInTheDocument();
     const stillInTheMarkup = document.body.textContent ?? '';

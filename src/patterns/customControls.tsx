@@ -6,7 +6,7 @@ const MENU_ITEMS = ['Duplicate', 'Move to archive', 'Export as CSV', 'Delete'] a
 /**
  * Two custom controls built out of `<div>`s: a switch and a menu.
  *
- * Building either of these from divs is a bad idea — a `<button>` or `<input
+ * Building either of these from divs is a bad idea; a `<button>` or `<input
  * type="checkbox" role="switch">` gives you the keyboard model, the focusability, the role
  * and the forced-colors handling for free. They are here because real codebases are full
  * of div-based controls, and the point is to show precisely how much work it takes to get
@@ -32,7 +32,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   // Move DOM focus to the active menu item whenever the menu is open. Focus, not just a
-  // highlight — aria-activedescendant is the alternative, but real focus is easier to get
+  // highlight: aria-activedescendant is the alternative, but real focus is easier to get
   // right and works with more assistive technology.
   useEffect(() => {
     if (!open || broken) return;
@@ -74,7 +74,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
         triggerRef.current?.focus();
         break;
       case 'Tab':
-        // Tab out of a menu closes it — the WAI-ARIA Authoring Practices menu-button
+        // Tab out of a menu closes it; the WAI-ARIA Authoring Practices menu-button
         // behaviour. Note we do NOT preventDefault: the user asked to leave.
         setOpen(false);
         break;
@@ -168,7 +168,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
           )}
 
           {/* Visible text state, so the switch is not communicated by position and colour
-              alone — helps colour-blind and low-vision users, and everyone on a small
+              alone: helps colour-blind and low-vision users, and everyone on a small
               screen. */}
           <span style={{ fontWeight: 600 }}>{checked ? 'On' : 'Off'}</span>
         </div>
@@ -331,12 +331,12 @@ function onMenuKeyDown(e) {
 }`;
 
 /**
- * Registry entry for the custom-controls pattern — a switch and a menu button rebuilt from
+ * Registry entry for the custom-controls pattern, a switch and a menu button rebuilt from
  * non-semantic elements, with role, tabindex, state and key handling supplied by hand.
  *
  * The line worth keeping in view is in `brokenBehaviour`: stripped of all of that, the
  * controls still work perfectly with a mouse. That is why this failure ships. Nothing in a
- * click-through review surfaces it, and the fix is not one attribute but the whole set —
+ * click-through review surfaces it, and the fix is not one attribute but the whole set,
  * role, tab stop, state, and keyboard contract together.
  *
  * Claims SC 2.1.1 Keyboard (A), SC 4.1.2 Name, Role, Value (A), SC 2.4.3 Focus Order (A)
@@ -370,7 +370,7 @@ export const customControlsPattern: PatternMeta = {
       name: 'Name, Role, Value',
       level: 'A',
       since: '2.0',
-      why: 'role="switch" supplies the role, aria-labelledby the name, aria-checked the value — and the value must update as the state changes. A styled div supplies none of the three.',
+      why: 'role="switch" supplies the role, aria-labelledby the name, aria-checked the value, and the value must update as the state changes. A styled div supplies none of the three.',
     },
     {
       number: '2.4.3',
@@ -388,18 +388,18 @@ export const customControlsPattern: PatternMeta = {
     },
   ],
   section508:
-    'All four are WCAG 2.0 criteria and are incorporated by E205.4 for web content and by 502.3 (Accessibility Services) and 503 for software user interfaces. 502.3.1 through 502.3.14 spell out, in software terms, essentially what 4.1.2 requires: object role, state, name, and value must be programmatically determinable and, where the user can set them, settable. Functional Performance Criteria 302.7 (With Limited Manipulation) and 302.8 (With Limited Reach and Strength) apply directly — these are the users for whom the keyboard, a switch device, or voice is the only input method.',
+    'All four are WCAG 2.0 criteria and are incorporated by E205.4 for web content and by 502.3 (Accessibility Services) and 503 for software user interfaces. 502.3.1 through 502.3.14 spell out, in software terms, essentially what 4.1.2 requires: object role, state, name, and value must be programmatically determinable and, where the user can set them, settable. Functional Performance Criteria 302.7 (With Limited Manipulation) and 302.8 (With Limited Reach and Strength) apply directly; these are the users for whom the keyboard, a switch device, or voice is the only input method.',
   howToTest: {
     keyboard: [
       'Tab to the switch. In the accessible version it takes focus and shows a ring; in the broken version Tab skips it entirely.',
       'Press Space, then Enter. Both should toggle it, and the visible "On/Off" text should change.',
       'Tab to the "Actions" button and press Enter or Down Arrow to open the menu.',
       'Press Down and Up to move between items, Home and End to jump to the ends.',
-      'Press Escape — the menu closes and focus returns to the Actions button.',
+      'Press Escape: the menu closes and focus returns to the Actions button.',
       'In the broken version, open the menu with the mouse and then press Tab: focus skips straight past all four items.',
     ],
     screenReader: [
-      'Accessible switch: "Email notifications, switch, off" — then "on" when toggled.',
+      'Accessible switch: "Email notifications, switch, off", then "on" when toggled.',
       'Accessible menu trigger: "Actions, menu pop-up button, collapsed", becoming "expanded".',
       'Menu items: "Duplicate, menu item, 1 of 4".',
       'Broken switch: read as a stray piece of text with no role and no state, if it is announced at all.',
@@ -408,6 +408,6 @@ export const customControlsPattern: PatternMeta = {
   },
   source: SOURCE,
   brokenBehaviour:
-    'The switch loses role, tabindex, and aria-checked — it becomes a decorated div with a click handler. The menu items lose role and tabindex, and the trigger loses aria-haspopup and aria-expanded. Everything still works perfectly with a mouse.',
+    'The switch loses role, tabindex, and aria-checked; it becomes a decorated div with a click handler. The menu items lose role and tabindex, and the trigger loses aria-haspopup and aria-expanded. Everything still works perfectly with a mouse.',
   Demo,
 };

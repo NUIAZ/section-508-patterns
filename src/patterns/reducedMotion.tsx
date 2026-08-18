@@ -5,7 +5,7 @@ import { usePrefersReducedMotion } from '../lib/theme';
 /**
  * `prefers-reduced-motion`.
  *
- * Vestibular disorders are common enough — and the effect strong enough — that a
+ * Vestibular disorders are common enough, and the effect strong enough, that a
  * parallax hero or a spinning loader can cause genuine nausea and disorientation, not
  * merely annoyance. The OS-level setting exists precisely so people do not have to hunt
  * for a per-site preference, and honouring it costs one media query.
@@ -23,7 +23,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
   const scope = `${idPrefix}-motion`;
 
   // The accessible version: the animation is defined once, then neutralised inside the
-  // media query. Note it becomes a *state change* rather than nothing — the element still
+  // media query. Note it becomes a *state change* rather than nothing; the element still
   // ends up in the right place, it just gets there instantly.
   const goodCss = `
     @keyframes ${scope}-slide {
@@ -126,7 +126,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 }
 
 const SOURCE = `/* Define the animation, then neutralise it. Note that the element
-   still ENDS UP in the right state — it just gets there instantly.
+   still ENDS UP in the right state; it just gets there instantly.
    Removing the animation must not remove the outcome. */
 @keyframes slide-in {
   from { transform: translateX(-2rem); opacity: 0; }
@@ -151,7 +151,7 @@ const SOURCE = `/* Define the animation, then neutralise it. Note that the eleme
   }
 }
 
-/* Read it in JavaScript for things CSS cannot reach — canvas,
+/* Read it in JavaScript for things CSS cannot reach: canvas,
    WebGL, an autoplaying video, a physics-based scroll library. */
 const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
 const reduced = mql.matches;
@@ -164,14 +164,14 @@ mql.addEventListener('change', (e) => setReduced(e.matches));
    What it must NOT mean: removing the feature.
 
    The worst offenders are parallax, auto-playing carousels, and
-   large-area zoom or spin transitions — motion that fills the
+   large-area zoom or spin transitions, motion that fills the
    viewport is far more provocative than a small one.
 
    Also required regardless of the media query, at Level A:
-     SC 2.2.2 Pause, Stop, Hide — anything that moves automatically,
+     SC 2.2.2 Pause, Stop, Hide, anything that moves automatically,
        lasts more than 5 seconds, and sits alongside other content
        needs a pause/stop/hide control.
-     SC 2.3.1 Three Flashes or Below Threshold — nothing may flash
+     SC 2.3.1 Three Flashes or Below Threshold, nothing may flash
        more than three times per second. This one is a seizure risk,
        not a comfort preference. */`;
 
@@ -190,7 +190,7 @@ export const reducedMotionPattern: PatternMeta = {
   id: 'reduced-motion',
   title: 'Respecting reduced motion',
   problem:
-    'Large or repetitive movement can cause nausea, dizziness, and migraine in people with vestibular disorders, and it makes content hard to read for anyone with an attention or reading difficulty. The operating system already knows who those people are — the site just has to ask.',
+    'Large or repetitive movement can cause nausea, dizziness, and migraine in people with vestibular disorders, and it makes content hard to read for anyone with an attention or reading difficulty. The operating system already knows who those people are; the site just has to ask.',
   keywords: ['prefers-reduced-motion', 'animation', 'parallax', 'vestibular', 'pause stop hide', 'carousel'],
   criteria: [
     {
@@ -212,26 +212,26 @@ export const reducedMotionPattern: PatternMeta = {
       name: 'Animation from Interactions',
       level: 'AAA',
       since: '2.1',
-      why: 'Stated accurately: the criterion that specifically requires honouring reduced-motion for interaction animations is Level AAA and WCAG 2.1. Honouring the media query is still the right thing to do — it is simply not what makes you compliant at AA.',
+      why: 'Stated accurately: the criterion that specifically requires honouring reduced-motion for interaction animations is Level AAA and WCAG 2.1. Honouring the media query is still the right thing to do; it is simply not what makes you compliant at AA.',
     },
   ],
   section508:
-    'Be precise here, because this is a pattern people over-claim. Section 508 incorporates WCAG 2.0 Level A and AA via E205.4, so SC 2.2.2 Pause, Stop, Hide and SC 2.3.1 Three Flashes are 508 requirements. SC 2.3.3 Animation from Interactions — the criterion actually about prefers-reduced-motion — is WCAG 2.1 AND Level AAA, so it is required by neither Section 508 nor WCAG AA. Separately, the Revised 508 Standards do have a directly relevant hardware/software provision: 503.4 requires user controls for captions and audio description, and Chapter 3 Functional Performance Criterion 302.9 covers limited cognitive and learning abilities. Honour the media query because it helps real people, and cite 2.2.2 when you need a requirement to point at.',
+    'Be precise here, because this is a pattern people over-claim. Section 508 incorporates WCAG 2.0 Level A and AA via E205.4, so SC 2.2.2 Pause, Stop, Hide and SC 2.3.1 Three Flashes are 508 requirements. SC 2.3.3 Animation from Interactions, the criterion actually about prefers-reduced-motion, is WCAG 2.1 AND Level AAA, so it is required by neither Section 508 nor WCAG AA. Separately, the Revised 508 Standards do have a directly relevant hardware/software provision: 503.4 requires user controls for captions and audio description, and Chapter 3 Functional Performance Criterion 302.9 covers limited cognitive and learning abilities. Honour the media query because it helps real people, and cite 2.2.2 when you need a requirement to point at.',
   howToTest: {
     keyboard: [
       'Tab to "Pause animation" and press Enter. The motion should stop and the button label should change.',
       'Tab to "Simulate reduce motion" and press Space. The square should snap to its resting position with no movement.',
-      'Turn the setting on for real in your OS and reload — the animation should never start.',
+      'Turn the setting on for real in your OS and reload: the animation should never start.',
       'In the broken version, look for the pause control. There is not one.',
     ],
     screenReader: [
-      'The animated square is aria-hidden, so it is announced not at all — correct, because it carries no information.',
+      'The animated square is aria-hidden, so it is announced not at all; correct, because it carries no information.',
       'The pause button announces its current action: "Pause animation, button", then "Play animation, button".',
       'This pattern is mostly not a screen-reader concern. Its users are sighted people with vestibular, migraine, or attention conditions.',
     ],
   },
   source: SOURCE,
   brokenBehaviour:
-    'The animation ignores prefers-reduced-motion entirely, runs infinitely at speed with a large translate-rotate-scale, and offers no way to pause it — which also fails SC 2.2.2 at Level A.',
+    'The animation ignores prefers-reduced-motion entirely, runs infinitely at speed with a large translate-rotate-scale, and offers no way to pause it, which also fails SC 2.2.2 at Level A.',
   Demo,
 };

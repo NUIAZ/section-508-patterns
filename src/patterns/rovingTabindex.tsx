@@ -8,15 +8,15 @@
  * What breaks without it, in two different directions. Leave every child a tab stop and a
  * thirty-button toolbar costs thirty presses to walk past, which is not a conformance
  * failure but is the kind of friction that makes keyboard operation genuinely unpleasant.
- * Take the tab stops away *without* implementing arrow-key handling — the broken variant
- * here, and the more common bug — and the widget still announces itself as a toolbar of
+ * Take the tab stops away *without* implementing arrow-key handling (the broken variant
+ * here, and the more common bug), and the widget still announces itself as a toolbar of
  * buttons while nothing inside it can be reached at all. The announced role and the actual
  * behaviour contradict each other, and the user is told there is something there that they
  * cannot get to.
  *
- * Criteria demonstrated: SC 2.1.1 Keyboard (Level A) — every control operable from the
- * keyboard; SC 2.4.3 Focus Order (Level A) — movement follows the visual order and does not
- * jump; SC 4.1.2 Name, Role, Value (Level A) — the exposed role has to match what the widget
+ * Criteria demonstrated: SC 2.1.1 Keyboard (Level A), every control operable from the
+ * keyboard; SC 2.4.3 Focus Order (Level A), movement follows the visual order and does not
+ * jump; SC 4.1.2 Name, Role, Value (Level A), the exposed role has to match what the widget
  * actually does.
  *
  * Roving tabindex is itself a WAI-ARIA Authoring Practices technique, not a success
@@ -53,7 +53,7 @@ const TOOLS: readonly Tool[] = [
  * attributes swap and focus is moved programmatically.
  *
  * Why bother: a formatting toolbar with thirty buttons that are each a tab stop makes Tab
- * useless for getting past it. Roving tabindex is not a WCAG criterion in itself — it is
+ * useless for getting past it. Roving tabindex is not a WCAG criterion in itself; it is
  * the WAI-ARIA Authoring Practices technique that makes 2.1.1 and 2.4.3 pleasant rather
  * than merely satisfied.
  */
@@ -206,7 +206,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 const SOURCE = `const [activeIndex, setActiveIndex] = useState(0);
 const refs = useRef([]);
 
-// Move focus only in response to a key press — never on mount.
+// Move focus only in response to a key press, never on mount.
 const shouldFocus = useRef(false);
 useEffect(() => {
   if (shouldFocus.current) refs.current[activeIndex]?.focus();
@@ -245,7 +245,7 @@ function onKeyDown(e) {
      grid      both       → all four + Ctrl+Home/End
    The alternative to real focus is aria-activedescendant: focus
    stays on the container and one attribute points at the active
-   child. Fewer moving parts, but weaker AT support — prefer real
+   child. Fewer moving parts, but weaker AT support; prefer real
    focus unless you have a reason. */`;
 
 /**
@@ -253,7 +253,7 @@ function onKeyDown(e) {
  * `customControlsPattern` in `PATTERNS` because it answers the question that one raises:
  * once you have built a composite widget out of non-semantic elements, how does the keyboard
  * move *within* it. Claims SC 2.1.1 Keyboard (A), SC 2.4.3 Focus Order (A) and SC 4.1.2
- * Name, Role, Value (A) — see the file header for why the technique itself is not a
+ * Name, Role, Value (A), see the file header for why the technique itself is not a
  * criterion.
  */
 export const rovingTabindexPattern: PatternMeta = {
@@ -286,7 +286,7 @@ export const rovingTabindexPattern: PatternMeta = {
     },
   ],
   section508:
-    'Incorporated through E205.4 (content) and 502/503 (software), which reference WCAG 2.0 Level A and AA. Roving tabindex is not named anywhere in the 508 text — it is a technique from the W3C WAI-ARIA Authoring Practices Guide, which is the reference implementation people mean when they say "the ARIA pattern". Functional Performance Criteria 302.7 With Limited Manipulation and 302.8 With Limited Reach and Strength are the ones that make the keystroke count a real accessibility issue and not just an ergonomics nicety.',
+    'Incorporated through E205.4 (content) and 502/503 (software), which reference WCAG 2.0 Level A and AA. Roving tabindex is not named anywhere in the 508 text; it is a technique from the W3C WAI-ARIA Authoring Practices Guide, which is the reference implementation people mean when they say "the ARIA pattern". Functional Performance Criteria 302.7 With Limited Manipulation and 302.8 With Limited Reach and Strength are the ones that make the keystroke count a real accessibility issue and not just an ergonomics nicety.',
   howToTest: {
     keyboard: [
       'Tab from "Link before the toolbar". In the accessible version you land on exactly one toolbar button.',
@@ -294,16 +294,16 @@ export const rovingTabindexPattern: PatternMeta = {
       'Press Home, then End, to jump to the first and last buttons.',
       'Press Tab. You leave the whole toolbar in one press and land on "Link after the toolbar".',
       'Press Shift+Tab back into the toolbar: focus returns to the button you last used, not to the first.',
-      'In the broken version, Tab goes straight from the link before to the link after — the six controls do not exist for you.',
+      'In the broken version, Tab goes straight from the link before to the link after; the six controls do not exist for you.',
     ],
     screenReader: [
       '"Text formatting, toolbar" on entry, then "Align left, button, not pressed".',
       'Arrowing along should announce each button and its pressed state.',
-      'In the broken version you hear the toolbar role announced but arrow keys do nothing — the widget promises a behaviour it does not have.',
+      'In the broken version you hear the toolbar role announced but arrow keys do nothing; the widget promises a behaviour it does not have.',
     ],
   },
   source: SOURCE,
   brokenBehaviour:
-    'The container keeps role="toolbar" while the items become divs with role="button" and no tabindex. Nothing inside is focusable, and arrow keys are not handled — the announced role and the actual behaviour contradict each other.',
+    'The container keeps role="toolbar" while the items become divs with role="button" and no tabindex. Nothing inside is focusable, and arrow keys are not handled; the announced role and the actual behaviour contradict each other.',
   Demo,
 };

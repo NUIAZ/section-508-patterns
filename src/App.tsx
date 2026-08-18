@@ -4,7 +4,7 @@
  * This is where the site's own accessibility lives, as opposed to the accessibility each
  * pattern demonstrates. A visitor auditing this repo will Tab through *this* page before
  * they read a word of it, so the shell has to survive the same scrutiny the patterns
- * invite — the skip link, the focus-on-navigate behaviour, and the route announcement are
+ * invite: the skip link, the focus-on-navigate behaviour, and the route announcement are
  * all implemented here rather than delegated, and they are documented on `App` below.
  *
  * It also owns the search query, so that the sidebar's match count and the rendered pattern
@@ -38,7 +38,7 @@ const PAGE_TITLES: Record<RouteName, string> = {
  *  2. **Route-change focus and announcement.** A hash route change does not reload the
  *     document, so nothing tells assistive technology that the page changed. On every
  *     navigation we move focus to the new page's heading and update both the document
- *     title and a live region. Skipped on first render — stealing focus on load is its own
+ *     title and a live region. Skipped on first render; stealing focus on load is its own
  *     bug. SC 2.4.3 Focus Order (A) and SC 4.1.3 Status Messages (AA).
  *  3. **Deep-link handling.** `#/patterns#focus-trap` scrolls the card into view and
  *     focuses its heading, so a link from the checklist lands somewhere usable rather than
@@ -58,10 +58,10 @@ export function App(): ReactNode {
   const matches = useMemo(() => searchPatterns(PATTERNS, query), [query]);
 
   // Keep the document title in step with the route. SC 2.4.2 Page Titled (A) applies to
-  // client-side routes as much as to server-rendered pages — for many screen-reader users
+  // client-side routes as much as to server-rendered pages; for many screen-reader users
   // the title is the first thing they hear after a navigation.
   useEffect(() => {
-    document.title = `${PAGE_TITLES[route.name]} — Section 508 Patterns`;
+    document.title = `${PAGE_TITLES[route.name]} | Section 508 Patterns`;
   }, [route.name]);
 
   // Move focus on navigation, and announce where we landed.
@@ -85,7 +85,7 @@ export function App(): ReactNode {
         const focusTarget = heading ?? target;
         focusTarget.setAttribute('tabindex', '-1');
         focusTarget.focus();
-        setRouteAnnouncement(`${focusTarget.textContent ?? 'Section'} — ${PAGE_TITLES[route.name]}`);
+        setRouteAnnouncement(`${focusTarget.textContent ?? 'Section'} | ${PAGE_TITLES[route.name]}`);
         return;
       }
     }

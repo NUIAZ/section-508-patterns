@@ -22,9 +22,9 @@ import { focusTrapPattern } from '../patterns/focusTrap';
  *     fragments, so those rules would report failures that do not exist on the real page.
  *     The harness test below re-enables them.
  *
- *  2. **axe finds roughly a third of real issues.** Everything else in this suite — focus
+ *  2. **axe finds roughly a third of real issues.** Everything else in this suite (focus
  *     cycling, focus restoration, keyboard operation of custom widgets, live-region
- *     politeness — exists because axe cannot see any of it. A green run here is a floor,
+ *     politeness) exists because axe cannot see any of it. A green run here is a floor,
  *     not a ceiling, and the last two tests in this file demonstrate exactly where the
  *     floor is.
  */
@@ -109,7 +109,7 @@ describe('axe-core: demos in a full page context, with page-level rules enabled'
 describe('the boundary of automated testing', () => {
   /**
    * axe DOES detect a button with no accessible name, so the broken accessible-name demo
-   * fails the scan — this is the third or so of issues automation is good at.
+   * fails the scan: this is the third or so of issues automation is good at.
    */
   it('flags the unnamed icon buttons in the broken accessible-name demo', async () => {
     const { container } = render(
@@ -121,7 +121,7 @@ describe('the boundary of automated testing', () => {
 
   /**
    * And this is the other two thirds. The broken modal has no role, no aria-modal, no
-   * focus management and no Escape handling — a serious, user-blocking failure — and a
+   * focus management and no Escape handling, a serious, user-blocking failure, and a
    * static scan of the closed page has nothing to report. The keyboard tests in
    * focusTrap.test.tsx catch it in milliseconds.
    */

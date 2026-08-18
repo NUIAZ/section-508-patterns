@@ -17,7 +17,7 @@ interface CheckRow {
  * known values (black on white is exactly 21:1; #767676 on white is 4.54:1, the classic
  * "darkest grey that still passes AA on white").
  *
- * The broken variant reports the same results using colour alone — green squares and red
+ * The broken variant reports the same results using colour alone: green squares and red
  * squares, no words. It is the fastest way to feel SC 1.4.1, because the information is
  * genuinely all there and genuinely unavailable.
  */
@@ -41,31 +41,31 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
             label: 'AA, normal text',
             threshold: 4.5,
             passes: verdict.aaNormal,
-            detail: 'SC 1.4.3 — body copy, anything under 18pt / 24px',
+            detail: 'SC 1.4.3, body copy, anything under 18pt / 24px',
           },
           {
             label: 'AA, large text',
             threshold: 3,
             passes: verdict.aaLarge,
-            detail: 'SC 1.4.3 — 18pt / 24px, or 14pt / 18.66px bold and larger',
+            detail: 'SC 1.4.3, 18pt / 24px, or 14pt / 18.66px bold and larger',
           },
           {
             label: 'AA, non-text',
             threshold: 3,
             passes: verdict.nonText,
-            detail: 'SC 1.4.11 (WCAG 2.1) — control borders, icons, focus rings, chart strokes',
+            detail: 'SC 1.4.11 (WCAG 2.1), control borders, icons, focus rings, chart strokes',
           },
           {
             label: 'AAA, normal text',
             threshold: 7,
             passes: verdict.aaaNormal,
-            detail: 'SC 1.4.6 — not required by AA or by Section 508',
+            detail: 'SC 1.4.6, not required by AA or by Section 508',
           },
           {
             label: 'AAA, large text',
             threshold: 4.5,
             passes: verdict.aaaLarge,
-            detail: 'SC 1.4.6 — not required by AA or by Section 508',
+            detail: 'SC 1.4.6, not required by AA or by Section 508',
           },
         ];
 
@@ -157,10 +157,10 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
           }}
         >
           <p style={{ margin: 0, fontSize: '1rem' }}>
-            Normal text at 16px — this needs 4.5:1 for AA.
+            Normal text at 16px: this needs 4.5:1 for AA.
           </p>
           <p style={{ margin: '0.35rem 0 0', fontSize: '1.5rem', fontWeight: 400 }}>
-            Large text at 24px — 3:1 is enough.
+            Large text at 24px: 3:1 is enough.
           </p>
         </div>
       ) : (
@@ -219,7 +219,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
                         <th scope="row">{row.label}</th>
                         <td>{row.threshold}:1</td>
                         <td style={{ color: row.passes ? 'var(--success)' : 'var(--danger)', fontWeight: 700 }}>
-                          {/* Glyph AND word AND colour — three redundant signals, so
+                          {/* Glyph AND word AND colour: three redundant signals, so
                               removing any one of them still leaves the result readable. */}
                           <span aria-hidden="true">{row.passes ? '✓ ' : '✕ '}</span>
                           {row.passes ? 'Pass' : 'Fail'}
@@ -236,7 +236,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
       </div>
 
       <p className="note" style={{ marginBlockStart: '1rem' }}>
-        <strong>Try these:</strong> <code>#767676</code> on white is 4.54:1 — the darkest
+        <strong>Try these:</strong> <code>#767676</code> on white is 4.54:1, the darkest
         plain grey that still passes AA for body text. <code>#777777</code> on white is
         4.48:1 and fails. <code>#949494</code> on white is 3.03:1: fine for a 24px heading,
         not for a paragraph.
@@ -246,7 +246,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 }
 
 const SOURCE = `/** Linearise one 8-bit sRGB channel.
- *  The 0.03928 branch is normative — this is NOT a plain gamma 2.2. */
+ *  The 0.03928 branch is normative: this is NOT a plain gamma 2.2. */
 function linearise(channel8Bit) {
   const c = channel8Bit / 255;
   return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
@@ -277,26 +277,26 @@ function contrastRatio(fg, bg) {
 
    Exempt from 1.4.3: disabled controls, pure decoration, logotypes,
    and text that is part of a picture of significant other content.
-   "Disabled" is an exemption people over-claim — a disabled control
+   "Disabled" is an exemption people over-claim; a disabled control
    nobody can read is still a usability failure.
 
-   Round DOWN when you display the ratio. 4.4996 shown as "4.50 —
+   Round DOWN when you display the ratio. 4.4996 shown as "4.50,
    passes" is a quiet lie. */
 
 /* Anti-pattern this criterion does NOT cover, but 1.4.1 does:
    using colour as the ONLY way to convey something. Add a glyph,
-   a word, a shape, an underline — anything that survives being
+   a word, a shape, an underline, anything that survives being
    printed in greyscale. */`;
 
 /**
  * Registry entry for the colour and contrast pattern. Its demo is the live checker, so this
  * is the one card whose "broken" variant is not a broken component but a broken *readout*:
  * the verdict table is replaced by coloured squares, encoding the pass/fail result in hue
- * alone — a contrast tool committing the failure it exists to detect.
+ * alone: a contrast tool committing the failure it exists to detect.
  *
  * Claims SC 1.4.3 Contrast (Minimum) (AA), SC 1.4.1 Use of Color (A), SC 1.4.11 Non-text
  * Contrast (AA, WCAG 2.1) and SC 1.4.6 Contrast (Enhanced) (AAA). The AAA entry is offered
- * as a target, not an obligation — neither WCAG AA nor Section 508 requires it.
+ * as a target, not an obligation, neither WCAG AA nor Section 508 requires it.
  */
 export const colourContrastPattern: PatternMeta = {
   id: 'colour-contrast',
@@ -331,20 +331,20 @@ export const colourContrastPattern: PatternMeta = {
       name: 'Contrast (Enhanced)',
       level: 'AAA',
       since: '2.0',
-      why: 'The 7:1 / 4.5:1 tier. Included for completeness and clearly marked AAA — it is not a Section 508 or WCAG AA requirement, and presenting it as one is a common way to lose an argument with a designer for no reason.',
+      why: 'The 7:1 / 4.5:1 tier. Included for completeness and clearly marked AAA; it is not a Section 508 or WCAG AA requirement, and presenting it as one is a common way to lose an argument with a designer for no reason.',
     },
   ],
   section508:
-    'SC 1.4.3 and 1.4.1 are WCAG 2.0 Level A/AA criteria and are incorporated by E205.4. Two things worth being precise about: SC 1.4.11 Non-text Contrast is a WCAG 2.1 addition and so is not a 2017 Revised 508 requirement, and SC 1.4.6 is Level AAA and is not required by either. Chapter 3 Functional Performance Criteria 302.2 (With Limited Vision) and 302.3 (Without Perception of Color) are the 508 provisions that speak to this most directly, and 302.3 is unusually explicit for a functional criterion — it requires a mode of operation that does not require user perception of colour.',
+    'SC 1.4.3 and 1.4.1 are WCAG 2.0 Level A/AA criteria and are incorporated by E205.4. Two things worth being precise about: SC 1.4.11 Non-text Contrast is a WCAG 2.1 addition and so is not a 2017 Revised 508 requirement, and SC 1.4.6 is Level AAA and is not required by either. Chapter 3 Functional Performance Criteria 302.2 (With Limited Vision) and 302.3 (Without Perception of Color) are the 508 provisions that speak to this most directly, and 302.3 is unusually explicit for a functional criterion; it requires a mode of operation that does not require user perception of colour.',
   howToTest: {
     keyboard: [
       'Tab into the colour fields and type a hex value. The ratio and every verdict update as you type.',
-      'Tab to Swap and press Enter — the ratio is unchanged, because contrast is symmetric.',
+      'Tab to Swap and press Enter: the ratio is unchanged, because contrast is symmetric.',
       'Enter an unparseable value like "blueish": the field is marked aria-invalid and an error explains what is accepted.',
     ],
     screenReader: [
       'Typing a new colour should produce a polite announcement of the new ratio, because the results sit in a role="status" region.',
-      'The results table announces "AA normal text, Needs 4.5 to 1, Result Pass" — the verdict is a word, so it survives being spoken.',
+      'The results table announces "AA normal text, Needs 4.5 to 1, Result Pass": the verdict is a word, so it survives being spoken.',
       'In the broken variant the same region announces only "AA, normal text" with no verdict at all. The pass/fail lives entirely in a coloured square.',
     ],
   },

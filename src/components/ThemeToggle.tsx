@@ -38,7 +38,7 @@ export function ThemeToggle(): ReactNode {
           </option>
         ))}
       </select>
-      {/* Tells screen-reader users what "System" actually resolved to — information a
+      {/* Tells screen-reader users what "System" actually resolved to: information a
           sighted user gets from simply looking at the page. */}
       <span className="sr-only" role="status">
         {`Theme set to ${choice}. Currently showing the ${resolved} palette.`}

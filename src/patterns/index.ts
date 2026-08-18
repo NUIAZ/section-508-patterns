@@ -4,7 +4,7 @@
  * Every pattern is imported eagerly and listed in `PATTERNS`. No dynamic import, no glob,
  * no filesystem convention: adding a pattern is two visible lines in this file, and a
  * pattern that is not listed here does not exist as far as the site is concerned. That
- * bluntness is worth more than the ceremony it costs — the alternative fails silently, and
+ * bluntness is worth more than the ceremony it costs; the alternative fails silently, and
  * a criterion nobody can find is indistinguishable from one that was never written.
  *
  * The helpers below are the only queries the rest of the application makes against the
@@ -60,7 +60,7 @@ export const PATTERNS: readonly PatternMeta[] = [
   speechInputPattern,
 ];
 
-/** Look a pattern up by its id — used by the checklist page's deep links. */
+/** Look a pattern up by its id, used by the checklist page's deep links. */
 export function getPattern(id: string): PatternMeta | undefined {
   return PATTERNS.find((pattern) => pattern.id === id);
 }
@@ -68,7 +68,7 @@ export function getPattern(id: string): PatternMeta | undefined {
 /**
  * Every distinct success criterion mentioned anywhere in the registry, sorted by number.
  *
- * Sorting is numeric per segment, so 1.4.10 comes after 1.4.9 rather than after 1.4.1 —
+ * Sorting is numeric per segment, so 1.4.10 comes after 1.4.9 rather than after 1.4.1,
  * a string sort gets this wrong and is the reason so many published WCAG checklists list
  * their criteria in a slightly mad order.
  */

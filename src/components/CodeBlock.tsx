@@ -14,7 +14,7 @@ interface CodeBlockProps {
  * card and would multiply any mistake by sixteen:
  *
  *  1. **The <pre> is `tabindex="0"` with a `role="region"` and a label.** A scrollable
- *     element that is not focusable cannot be scrolled by a keyboard-only user — they can
+ *     element that is not focusable cannot be scrolled by a keyboard-only user; they can
  *     never read past the right-hand edge of a wide snippet. Making it focusable fixes
  *     that; giving it a name means the screen reader announces what the region contains
  *     instead of "region, blank". (SC 2.1.1 Keyboard, Level A.)
@@ -22,7 +22,7 @@ interface CodeBlockProps {
  *  2. **The copy result is announced.** Swapping the button's label from "Copy" to
  *     "Copied" is a purely visual confirmation. The status message goes in a separate
  *     `role="status"` region that is already in the DOM, so assistive technology observes
- *     the change and speaks it. (SC 4.1.3 Status Messages, Level AA — WCAG 2.1.)
+ *     the change and speaks it. (SC 4.1.3 Status Messages, Level AA, WCAG 2.1.)
  *
  *  3. **The button keeps a stable accessible name.** It always reads "Copy code"; the
  *     transient "Copied" text lives elsewhere. A control whose name changes under the
@@ -61,7 +61,7 @@ export function CodeBlock({ code, language = 'tsx', label }: CodeBlockProps): Re
             void copy();
           }}
         >
-          {/* The icon is decorative — the button already has a text label, so announcing
+          {/* The icon is decorative: the button already has a text label, so announcing
               the glyph as well would produce "clipboard copy code". */}
           <span aria-hidden="true">⧉</span>
           Copy code

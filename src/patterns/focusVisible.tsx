@@ -4,7 +4,7 @@ import type { DemoProps, PatternMeta } from '../lib/types';
 /**
  * Focus visibility demo.
  *
- * The broken variant applies `outline: none` to everything inside the stage — the single
+ * The broken variant applies `outline: none` to everything inside the stage, the single
  * most common accessibility regression in front-end code, usually introduced by a
  * designer asking to "get rid of that blue box" and nobody adding a replacement.
  *
@@ -37,7 +37,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 
       <p style={{ marginTop: 0 }}>
         Press <kbd>Tab</kbd> repeatedly through these five controls and watch for the ring.
-        Then click one with the mouse — in the accessible version, clicking should
+        Then click one with the mouse; in the accessible version, clicking should
         <em> not</em> paint a ring, because <code>:focus-visible</code> distinguishes
         keyboard focus from pointer focus.
       </p>
@@ -65,7 +65,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
 
       {broken ? (
         <p className="note note-warning" style={{ marginBlockStart: '0.75rem' }}>
-          You are still moving through the controls — the browser knows exactly where focus
+          You are still moving through the controls; the browser knows exactly where focus
           is. You just cannot see it. That is what using a site with{' '}
           <code>outline: none</code> feels like all day.
         </p>
@@ -89,7 +89,7 @@ const SOURCE = `/* The good version: one global rule, not per-component. */
 }
 
 /* If the design truly cannot accept an outline, replace it with an
-   indicator of equivalent visibility — a box-shadow ring, a border
+   indicator of equivalent visibility: a box-shadow ring, a border
    swap, an inverted background. What is NOT acceptable is nothing.
    The replacement needs 3:1 contrast against the adjacent colour
    (SC 1.4.11 Non-text Contrast, AA). */
@@ -111,8 +111,8 @@ const SOURCE = `/* The good version: one global rule, not per-component. */
  * exactly the users who most depend on it. Keep a transparent `outline` so forced-colors
  * mode has something real to paint.
  *
- * Claims SC 2.4.7 Focus Visible (AA), SC 1.4.11 Non-text Contrast (AA, WCAG 2.1) — the ring
- * itself is a non-text indicator and needs 3:1 against what surrounds it — and SC 1.4.1 Use
+ * Claims SC 2.4.7 Focus Visible (AA), SC 1.4.11 Non-text Contrast (AA, WCAG 2.1): the ring
+ * itself is a non-text indicator and needs 3:1 against what surrounds it, and SC 1.4.1 Use
  * of Color (A), since a ring distinguished from the unfocused state by hue alone is no
  * indicator at all.
  */
@@ -120,7 +120,7 @@ export const focusVisiblePattern: PatternMeta = {
   id: 'focus-visible',
   title: 'Visible focus indicator',
   problem:
-    'Someone navigating with a keyboard has exactly one piece of information about where they are on the page: the focus ring. Deleting it without a replacement does not make the site cleaner — it makes it unusable, in the same way that hiding the mouse cursor would.',
+    'Someone navigating with a keyboard has exactly one piece of information about where they are on the page: the focus ring. Deleting it without a replacement does not make the site cleaner; it makes it unusable, in the same way that hiding the mouse cursor would.',
   keywords: ['outline none', 'focus ring', 'focus-visible', 'keyboard', 'high contrast mode'],
   criteria: [
     {
@@ -142,7 +142,7 @@ export const focusVisiblePattern: PatternMeta = {
       name: 'Use of Color',
       level: 'A',
       since: '2.0',
-      why: 'A focus indicator that only shifts the hue of a button — with no change in border, weight, or shape — is not perceivable to a visitor with a colour vision deficiency.',
+      why: 'A focus indicator that only shifts the hue of a button, with no change in border, weight, or shape, is not perceivable to a visitor with a colour vision deficiency.',
     },
   ],
   section508:
@@ -151,16 +151,16 @@ export const focusVisiblePattern: PatternMeta = {
     keyboard: [
       'Click just above the demo, then press Tab five times to walk through the controls.',
       'In the accessible version every stop shows a thick ring offset from the control.',
-      'Now click a button with the mouse — no ring appears, because :focus-visible knows the difference.',
+      'Now click a button with the mouse: no ring appears, because :focus-visible knows the difference.',
       'In the broken version, press Tab five times and then press Enter. Something happened; you had no way to predict what.',
     ],
     screenReader: [
-      'Nothing changes for a screen reader — this criterion is about visible focus, and screen-reader users get focus information spoken instead.',
+      'Nothing changes for a screen reader; this criterion is about visible focus, and screen-reader users get focus information spoken instead.',
       'The people this pattern protects are sighted keyboard users: RSI, tremor, temporary injury, power users, and anyone using switch or voice control.',
     ],
   },
   source: SOURCE,
   brokenBehaviour:
-    'A scoped stylesheet sets outline: none on :focus and :focus-visible for everything in the demo. Focus still moves — you simply cannot see where it is.',
+    'A scoped stylesheet sets outline: none on :focus and :focus-visible for everything in the demo. Focus still moves; you simply cannot see where it is.',
   Demo,
 };

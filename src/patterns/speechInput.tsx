@@ -3,7 +3,7 @@ import type { DemoProps, PatternMeta } from '../lib/types';
 import { computeAccessibleName } from '../lib/focus';
 
 /** Placeholder for the sibling repository referenced in the README. */
-export const VOICE_DEMO_REPO_URL = 'https://github.com/<user>/voice-command-demo';
+export const VOICE_DEMO_REPO_URL = 'https://github.com/NUIAZ/voice-command-demo';
 
 interface NameCheck {
   readonly visible: string;
@@ -17,7 +17,7 @@ interface NameCheck {
  * Voice control (Dragon, Windows Voice Access, macOS/iOS Voice Control, Android Voice
  * Access) works by matching what the user SAYS against the control's ACCESSIBLE NAME. So
  * a button that reads "Save" on screen but carries `aria-label="Submit form"` cannot be
- * activated by saying "click Save" — the visible label and the name have diverged.
+ * activated by saying "click Save", the visible label and the name have diverged.
  *
  * That is SC 2.5.3 Label in Name, and it is the criterion most often broken by someone
  * *trying* to improve accessibility: they add an aria-label to make the announcement more
@@ -119,7 +119,7 @@ function Demo({ broken }: DemoProps): ReactNode {
                     }}
                   >
                     <span aria-hidden="true">{check.passes ? '✓ ' : '✕ '}</span>
-                    {check.passes ? 'Pass' : 'Fail — cannot be activated by voice'}
+                    {check.passes ? 'Pass' : 'Fail: cannot be activated by voice'}
                   </td>
                 </tr>
               ))}
@@ -132,9 +132,8 @@ function Demo({ broken }: DemoProps): ReactNode {
         A companion repository demonstrating voice-driven navigation lives at{' '}
         <a href={VOICE_DEMO_REPO_URL}>
           <code>{VOICE_DEMO_REPO_URL}</code>
-        </a>{' '}
-        — replace <code>&lt;user&gt;</code> with the account this repository is published
-        under.
+        </a>
+        .
       </p>
     </div>
   );
@@ -149,7 +148,7 @@ const SOURCE = `{/* ✅ Best: no aria-label. The visible text IS the accessible
 <button aria-label="Save the application form">Save</button>
 
 {/* ❌ Broken: the name REPLACES the visible text. A voice-control
-    user saying "click Save" gets nothing — the word "Save" does not
+    user saying "click Save" gets nothing; the word "Save" does not
     appear in the accessible name at all. */}
 <button aria-label="Submit the application form">Save</button>
 
@@ -157,7 +156,7 @@ const SOURCE = `{/* ✅ Best: no aria-label. The visible text IS the accessible
     someone labelled it for the icon. */}
 <button aria-label="Navigate backwards">← Previous step</button>
 
-{/* The same trap in forms — the placeholder is visible, the
+{/* The same trap in forms: the placeholder is visible, the
     aria-label is the name, and they disagree: */}
 <input aria-label="Electronic mail address" placeholder="Email" />
 {/* ✅ instead: a real <label> whose text is the name */}
@@ -169,7 +168,7 @@ const SOURCE = `{/* ✅ Best: no aria-label. The visible text IS the accessible
     visually."
 
    Practical reading:
-     • CONTAINS, not equals — you may add to it.
+     • CONTAINS, not equals; you may add to it.
      • Word order matters. Extra words at the FRONT are the usual
        failure ("Search products" as the name for a button reading
        "Search" is fine; "Product search" is not, because the
@@ -181,11 +180,11 @@ const SOURCE = `{/* ✅ Best: no aria-label. The visible text IS the accessible
 
    Who this affects: voice-control users (Dragon, Windows Voice
    Access, macOS and iOS Voice Control, Android Voice Access), and
-   also screen-reader users who can see the screen — hearing a name
+   also screen-reader users who can see the screen, hearing a name
    that does not match what they are looking at is disorienting. */`;
 
 /**
- * Registry entry for the speech-input pattern — the counterintuitive one, and the reason it
+ * Registry entry for the speech-input pattern, the counterintuitive one, and the reason it
  * earns a card of its own rather than a footnote on `accessibleName`.
  *
  * Its broken variant is not neglect but a well-meant fix: an `aria-label` written to improve
@@ -202,7 +201,7 @@ export const speechInputPattern: PatternMeta = {
   id: 'speech-input',
   title: 'Speech input and Label in Name',
   problem:
-    'Voice control activates a control by matching what you say against its accessible name. When a developer adds a "more descriptive" aria-label that replaces the visible text, the screen-reader announcement improves and the button becomes impossible to click by voice — an accessibility fix that breaks accessibility.',
+    'Voice control activates a control by matching what you say against its accessible name. When a developer adds a "more descriptive" aria-label that replaces the visible text, the screen-reader announcement improves and the button becomes impossible to click by voice: an accessibility fix that breaks accessibility.',
   keywords: ['voice control', 'dragon', 'voice access', 'label in name', '2.5.3', 'speech recognition', 'aria-label'],
   criteria: [
     {
@@ -217,7 +216,7 @@ export const speechInputPattern: PatternMeta = {
       name: 'Name, Role, Value',
       level: 'A',
       since: '2.0',
-      why: 'Voice control needs the name to exist at all before it can match against it — an unnamed icon button is unreachable by voice for the same reason it is unreachable by screen reader.',
+      why: 'Voice control needs the name to exist at all before it can match against it; an unnamed icon button is unreachable by voice for the same reason it is unreachable by screen reader.',
     },
     {
       number: '2.1.1',
@@ -228,7 +227,7 @@ export const speechInputPattern: PatternMeta = {
     },
   ],
   section508:
-    'Be careful here. SC 2.5.3 Label in Name is a WCAG 2.1 addition and is therefore NOT incorporated by the 2017 Revised Section 508 Standards, which reference WCAG 2.0. What Section 508 does provide is Chapter 3 Functional Performance Criteria: 302.7 With Limited Manipulation and 302.8 With Limited Reach and Strength describe the users who rely on speech input, and 302.6 Without Speech covers the mirror case — an interface must not REQUIRE speech. So under 508 alone the argument is a functional-performance one; under WCAG 2.1 AA, EN 301 549, and the DOJ ADA Title II rule (2024), 2.5.3 applies directly.',
+    'Be careful here. SC 2.5.3 Label in Name is a WCAG 2.1 addition and is therefore NOT incorporated by the 2017 Revised Section 508 Standards, which reference WCAG 2.0. What Section 508 does provide is Chapter 3 Functional Performance Criteria: 302.7 With Limited Manipulation and 302.8 With Limited Reach and Strength describe the users who rely on speech input, and 302.6 Without Speech covers the mirror case: an interface must not REQUIRE speech. So under 508 alone the argument is a functional-performance one; under WCAG 2.1 AA, EN 301 549, and the DOJ ADA Title II rule (2024), 2.5.3 applies directly.',
   howToTest: {
     keyboard: [
       'Read the "Visible label" and "Accessible name" columns side by side. Where the visible string does not appear inside the name, voice control cannot reach that control.',
@@ -236,8 +235,8 @@ export const speechInputPattern: PatternMeta = {
       'Free proxy without any voice software: in browser devtools, open the Accessibility pane, select a button, and compare the Name field to the text you can see.',
     ],
     screenReader: [
-      'Broken: "Submit the application form, button" — while the screen shows "Save". A screen-reader user with partial vision hears one thing and reads another.',
-      'Accessible: "Save the application form, button" — the announcement is still richer than the visible text, and the visible text is still in there.',
+      'Broken: "Submit the application form, button", while the screen shows "Save". A screen-reader user with partial vision hears one thing and reads another.',
+      'Accessible: "Save the application form, button": the announcement is still richer than the visible text, and the visible text is still in there.',
       'The failure mode is silent in both directions: automated tools can flag it (axe has a "label-in-name" style rule), but only a human notices the mismatch is confusing.',
     ],
   },

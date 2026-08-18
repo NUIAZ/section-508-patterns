@@ -1,5 +1,5 @@
 /**
- * The patterns page — the main body of the site.
+ * The patterns page: the main body of the site.
  *
  * Almost nothing happens here on purpose: the page owns no state, does no filtering, and
  * renders one `PatternCard` per entry it is handed. Search lives in `App`, the accessible
@@ -7,7 +7,7 @@
  * that thin is what lets the card and the demo be tested in isolation.
  *
  * The one thing it does own is the empty state. A filter that matches nothing must say so
- * in text and offer a way back — silently rendering nothing leaves a screen-reader user
+ * in text and offer a way back; silently rendering nothing leaves a screen-reader user
  * with no signal that anything happened, and leaves everyone else wondering whether the
  * page is broken or the query was.
  */

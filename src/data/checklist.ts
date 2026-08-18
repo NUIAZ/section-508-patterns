@@ -3,7 +3,7 @@
  *
  * Organised by success criterion, because that is how an audit finding will be written up
  * and how a procurement document will be worded. Each item is a thing you can actually
- * check in an afternoon, not a restatement of the criterion's text — "Every input has a
+ * check in an afternoon, not a restatement of the criterion's text: "Every input has a
  * <label for> pointing at its id" is checkable; "Information and relationships can be
  * programmatically determined" is not.
  *
@@ -17,7 +17,7 @@
  */
 
 export interface ChecklistItem {
-  /** Stable id — the persisted tick state is keyed on this, so never renumber. */
+  /** Stable id: the persisted tick state is keyed on this, so never renumber. */
   readonly id: string;
   readonly criterion: string;
   readonly criterionName: string;
@@ -29,8 +29,8 @@ export interface ChecklistItem {
 }
 
 /**
- * The checklist items, as a flat list in WCAG principle order — Perceivable, Operable,
- * Understandable, Robust — with several items per criterion where one sentence would not
+ * The checklist items, as a flat list in WCAG principle order (Perceivable, Operable,
+ * Understandable, Robust), with several items per criterion where one sentence would not
  * have been checkable. `ChecklistPage` regroups them by criterion at render time, so the
  * order within a criterion is preserved but the grouping is not encoded here.
  *
@@ -41,7 +41,7 @@ export interface ChecklistItem {
  * Coverage is deliberately partial. These are the Level A and AA criteria that account for
  * most real findings in application UIs; the audio, video, captioning and several
  * navigation criteria are out of scope and the page says so in as many words. Do not let
- * this list grow into a claim of full WCAG 2.1 AA conformance — it is a working list.
+ * this list grow into a claim of full WCAG 2.1 AA conformance; it is a working list.
  */
 export const CHECKLIST: readonly ChecklistItem[] = [
   // ── Perceivable ──────────────────────────────────────────────────────────
@@ -87,7 +87,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Info and Relationships',
     level: 'A',
     since: '2.0',
-    text: 'Every form control has a programmatically associated label — <label for> matching the control id.',
+    text: 'Every form control has a programmatically associated label: <label for> matching the control id.',
     patternId: 'forms',
   },
   {
@@ -141,7 +141,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Use of Color',
     level: 'A',
     since: '2.0',
-    text: 'Links inside body text are distinguishable without colour — underlined, or 3:1 against the surrounding text plus a non-colour cue on hover and focus.',
+    text: 'Links inside body text are distinguishable without colour: underlined, or 3:1 against the surrounding text plus a non-colour cue on hover and focus.',
   },
   {
     id: 'c-1-4-3-a',
@@ -149,7 +149,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Contrast (Minimum)',
     level: 'AA',
     since: '2.0',
-    text: 'All body text reaches 4.5:1 against its actual background — including text over images, gradients, and hover states.',
+    text: 'All body text reaches 4.5:1 against its actual background, including text over images, gradients, and hover states.',
     patternId: 'colour-contrast',
   },
   {
@@ -212,7 +212,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Non-text Contrast',
     level: 'AA',
     since: '2.1',
-    text: 'The focus indicator itself reaches 3:1 against both the component and the page background — check it in both light and dark themes.',
+    text: 'The focus indicator itself reaches 3:1 against both the component and the page background; check it in both light and dark themes.',
     patternId: 'focus-visible',
   },
   {
@@ -257,7 +257,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Keyboard',
     level: 'A',
     since: '2.0',
-    text: 'Nothing depends on hover alone — every hover interaction has a focus and a click equivalent.',
+    text: 'Nothing depends on hover alone; every hover interaction has a focus and a click equivalent.',
   },
   {
     id: 'c-2-1-2',
@@ -274,7 +274,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Timing Adjustable',
     level: 'A',
     since: '2.0',
-    text: 'Any session or interaction time limit can be turned off, extended to 10× the default, or extended after a warning — at least ten times.',
+    text: 'Any session or interaction time limit can be turned off, extended to 10× the default, or extended after a warning (at least ten times).',
     patternId: 'timeouts',
   },
   {
@@ -336,7 +336,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Link Purpose (In Context)',
     level: 'A',
     since: '2.0',
-    text: 'No bare "click here" or "read more" links — the purpose is clear from the link text, or from the link plus its sentence, list item, or table cell.',
+    text: 'No bare "click here" or "read more" links: the purpose is clear from the link text, or from the link plus its sentence, list item, or table cell.',
   },
   {
     id: 'c-2-4-5',
@@ -344,7 +344,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Multiple Ways',
     level: 'AA',
     since: '2.0',
-    text: 'There is more than one way to reach any page — navigation plus search, a sitemap, or an index.',
+    text: 'There is more than one way to reach any page: navigation plus search, a sitemap, or an index.',
   },
   {
     id: 'c-2-4-6',
@@ -397,7 +397,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'On Focus',
     level: 'A',
     since: '2.0',
-    text: 'Nothing changes context purely because an element received focus — no auto-submitting, auto-navigating, or auto-opening on focus.',
+    text: 'Nothing changes context purely because an element received focus: no auto-submitting, auto-navigating, or auto-opening on focus.',
   },
   {
     id: 'c-3-2-2',
@@ -468,7 +468,7 @@ export const CHECKLIST: readonly ChecklistItem[] = [
     criterionName: 'Name, Role, Value',
     level: 'A',
     since: '2.0',
-    text: 'Every ARIA role that implies a keyboard model actually implements it — no role="toolbar" or role="tablist" without arrow keys.',
+    text: 'Every ARIA role that implies a keyboard model actually implements it: no role="toolbar" or role="tablist" without arrow keys.',
     patternId: 'roving-tabindex',
   },
   {

@@ -50,7 +50,7 @@ describe('live regions', () => {
     });
 
     expect(status).toHaveTextContent('Saved. 3 records updated.');
-    // Focus stayed exactly where the user left it — that is the whole point of a live
+    // Focus stayed exactly where the user left it; that is the whole point of a live
     // region as opposed to moving focus to the message.
     expect(saveButton).toHaveFocus();
   });

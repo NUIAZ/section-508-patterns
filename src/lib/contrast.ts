@@ -11,9 +11,9 @@
  *
  * References:
  *   WCAG 2.1 "relative luminance" and "contrast ratio" definitions.
- *   SC 1.4.3 Contrast (Minimum), Level AA  — 4.5:1 normal text, 3:1 large text.
- *   SC 1.4.6 Contrast (Enhanced), Level AAA — 7:1 normal text, 4.5:1 large text.
- *   SC 1.4.11 Non-text Contrast, Level AA (WCAG 2.1) — 3:1 for UI components and
+ *   SC 1.4.3 Contrast (Minimum), Level AA, 4.5:1 normal text, 3:1 large text.
+ *   SC 1.4.6 Contrast (Enhanced), Level AAA, 7:1 normal text, 4.5:1 large text.
+ *   SC 1.4.11 Non-text Contrast, Level AA (WCAG 2.1), 3:1 for UI components and
  *   meaningful graphics.
  *
  * "Large text" is defined by WCAG as at least 18pt, or 14pt bold. At the usual 96dpi
@@ -36,13 +36,13 @@ export interface Rgb {
  */
 
 /**
- * SC 1.4.3 Contrast (Minimum), Level AA — normal-size text against its background.
+ * SC 1.4.3 Contrast (Minimum), Level AA, normal-size text against its background.
  * The default threshold: if you only ever check one number, check this one.
  */
 export const AA_NORMAL = 4.5;
 
 /**
- * SC 1.4.3 Contrast (Minimum), Level AA — *large* text only, i.e. at least 18pt, or 14pt
+ * SC 1.4.3 Contrast (Minimum), Level AA, *large* text only, i.e. at least 18pt, or 14pt
  * bold (≈24px, or ≈18.66px bold at 96dpi). Large text is allowed the lower ratio because
  * thicker strokes stay legible with less luminance separation. Applying this to body copy
  * because "the heading passes" is the most common way a design sails through review and
@@ -50,23 +50,23 @@ export const AA_NORMAL = 4.5;
  */
 export const AA_LARGE = 3;
 
-/** SC 1.4.6 Contrast (Enhanced), Level AAA — normal-size text. Beyond what Section 508
+/** SC 1.4.6 Contrast (Enhanced), Level AAA, normal-size text. Beyond what Section 508
  *  requires (it references Level A and AA only), but a sensible target for long-form
  *  reading and for interfaces used in bright ambient light. */
 export const AAA_NORMAL = 7;
 
-/** SC 1.4.6 Contrast (Enhanced), Level AAA — large text, same size definition as
+/** SC 1.4.6 Contrast (Enhanced), Level AAA, large text, same size definition as
  *  {@link AA_LARGE}. Equal in value to {@link AA_NORMAL} and unrelated to it in meaning. */
 export const AAA_LARGE = 4.5;
 
 /**
- * SC 1.4.11 Non-text Contrast, Level AA (added in WCAG 2.1) — the parts of a UI that are
+ * SC 1.4.11 Non-text Contrast, Level AA (added in WCAG 2.1), the parts of a UI that are
  * not text: input borders, focus indicators, toggle states, icon glyphs that carry meaning,
  * and the strokes of a chart you have to read.
  *
  * This is the threshold designers most often do not know exists. A 1px hairline border in
  * a pale grey may look tasteful and still leave a low-vision user unable to see where the
- * text field is. Purely decorative graphics are exempt — the test is whether removing the
+ * text field is. Purely decorative graphics are exempt; the test is whether removing the
  * thing would lose information.
  */
 export const NON_TEXT = 3;
@@ -88,7 +88,7 @@ export function parseColor(input: string): Rgb | null {
 
   const short = HEX_SHORT.exec(value);
   if (short) {
-    // #abc expands to #aabbcc — each nibble is duplicated, not zero-padded.
+    // #abc expands to #aabbcc, each nibble is duplicated, not zero-padded.
     return {
       r: Number.parseInt(short[1] + short[1], 16),
       g: Number.parseInt(short[2] + short[2], 16),
@@ -154,28 +154,28 @@ export function contrastRatio(foreground: Rgb, background: Rgb): number {
  *
  * All five booleans are reported together rather than the caller passing in "which level
  * am I targeting?", because the useful answer to "does this pass?" is usually "it passes
- * here and fails there" — a pairing that clears AA for large text but not for body copy is
+ * here and fails there", a pairing that clears AA for large text but not for body copy is
  * a real, actionable result, and a single pass/fail flag would hide it.
  *
  * `ratio` is the exact value for comparisons; `displayRatio` is the string for humans.
- * Never compare against `displayRatio` — it is deliberately lossy (see below).
+ * Never compare against `displayRatio`; it is deliberately lossy (see below).
  */
 export interface ContrastVerdict {
   /** Exact ratio, 1 to 21 inclusive. Use this for any threshold comparison. */
   readonly ratio: number;
   /** Rounded down to 2dp. Rounding *down* matters: 4.499 must not be reported as 4.50. */
   readonly displayRatio: string;
-  /** Clears {@link AA_NORMAL} — SC 1.4.3 (AA) for body-size text. */
+  /** Clears {@link AA_NORMAL}. SC 1.4.3 (AA) for body-size text. */
   readonly aaNormal: boolean;
-  /** Clears {@link AA_LARGE} — SC 1.4.3 (AA), but *only* if the text really is 18pt / 14pt
+  /** Clears {@link AA_LARGE}. SC 1.4.3 (AA), but *only* if the text really is 18pt / 14pt
    *  bold or larger. The checker cannot see your font size, so this one is a conditional
    *  pass the caller has to qualify. */
   readonly aaLarge: boolean;
-  /** Clears {@link AAA_NORMAL} — SC 1.4.6 (AAA) for body-size text. */
+  /** Clears {@link AAA_NORMAL}. SC 1.4.6 (AAA) for body-size text. */
   readonly aaaNormal: boolean;
-  /** Clears {@link AAA_LARGE} — SC 1.4.6 (AAA) for large text. */
+  /** Clears {@link AAA_LARGE}. SC 1.4.6 (AAA) for large text. */
   readonly aaaLarge: boolean;
-  /** SC 1.4.11 Non-text Contrast — borders, icons, focus rings, chart strokes. */
+  /** SC 1.4.11 Non-text Contrast: borders, icons, focus rings, chart strokes. */
   readonly nonText: boolean;
 }
 
@@ -183,7 +183,7 @@ export interface ContrastVerdict {
  * Evaluate a pair of colours against every threshold at once.
  *
  * The ratio is floored to two decimals for display. Ceiling or nearest-rounding would let
- * a 4.4996:1 pair render as "4.50 — passes", which is exactly the sort of quiet lie this
+ * a 4.4996:1 pair render as "4.50, passes", which is exactly the sort of quiet lie this
  * site exists to argue against.
  */
 export function evaluateContrast(foreground: Rgb, background: Rgb): ContrastVerdict {

@@ -12,7 +12,7 @@ interface PatternCardProps {
  * The structure is fixed on purpose: name, problem, live demo, broken toggle, source,
  * criteria, how to test. A consistent shape means a returning visitor knows where the
  * "how do I test this" note is without hunting, which is itself an accessibility property
- * (predictable structure — the spirit of SC 3.2.3 Consistent Navigation, AA).
+ * (predictable structure: the spirit of SC 3.2.3 Consistent Navigation, AA).
  *
  * Implementation notes:
  *  - The fixed/broken switch is a real radio group in a fieldset with a legend. It could
@@ -113,7 +113,7 @@ export function PatternCard({ pattern }: PatternCardProps): ReactNode {
 
       <h4 className="pattern-section-heading">How to test it</h4>
       <p>
-        <strong>With the keyboard</strong> — put focus in the demo above and:
+        <strong>With the keyboard</strong>: put focus in the demo above and:
       </p>
       <ol>
         {pattern.howToTest.keyboard.map((step, index) => (
@@ -121,7 +121,7 @@ export function PatternCard({ pattern }: PatternCardProps): ReactNode {
         ))}
       </ol>
       <p>
-        <strong>With a screen reader</strong> — you should hear:
+        <strong>With a screen reader</strong>: you should hear:
       </p>
       <ul>
         {pattern.howToTest.screenReader.map((line, index) => (

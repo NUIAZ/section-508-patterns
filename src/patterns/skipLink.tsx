@@ -18,7 +18,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
   const mainId = `${idPrefix}-main`;
 
   const handleSkip = (event: MouseEvent<HTMLAnchorElement>): void => {
-    // Prevent the default hash navigation so the demo does not alter the page URL — this
+    // Prevent the default hash navigation so the demo does not alter the page URL; this
     // demo lives inside a hash-routed site and rewriting the fragment would navigate away.
     event.preventDefault();
     targetRef.current?.focus();
@@ -87,7 +87,7 @@ const SOURCE = `// The link is the FIRST focusable thing in the document.
 // The target is programmatically focusable but not a tab stop.
 <main id="main" tabindex="-1">…</main>
 
-/* Clipped, not display:none — display:none is unfocusable and
+/* Clipped, not display:none; display:none is unfocusable and
    invisible to assistive technology. It becomes visible the
    instant it receives focus. */
 .sr-only-focusable:not(:focus):not(:focus-within) {
@@ -116,9 +116,9 @@ document.querySelector('.skip-link')
 
 /**
  * Registry entry for the skip-link pattern. First in `PATTERNS` because it is the first
- * thing a keyboard user meets on any page, and because the failure it demonstrates —
+ * thing a keyboard user meets on any page, and because the failure it demonstrates,
  * a skip link present in the HTML but `display:none`, so an automated "is there a skip
- * link?" check passes while no human can ever reach it — is the clearest example on the
+ * link?" check passes while no human can ever reach it, is the clearest example on the
  * site of why a scanner result is not an answer.
  *
  * Claims SC 2.4.1 Bypass Blocks (A), SC 2.4.3 Focus Order (A) and SC 2.4.7 Focus
@@ -128,7 +128,7 @@ export const skipLinkPattern: PatternMeta = {
   id: 'skip-link',
   title: 'Skip link',
   problem:
-    'A keyboard-only visitor lands on every page at the top and has to Tab through the whole masthead and navigation — often thirty or more stops — before reaching the content. On a ten-page journey that is three hundred keystrokes of pure overhead.',
+    'A keyboard-only visitor lands on every page at the top and has to Tab through the whole masthead and navigation, often thirty or more stops, before reaching the content. On a ten-page journey that is three hundred keystrokes of pure overhead.',
   keywords: ['bypass blocks', 'skip navigation', 'skip to content', 'tabindex -1', 'sr-only'],
   criteria: [
     {
@@ -157,14 +157,14 @@ export const skipLinkPattern: PatternMeta = {
     'Revised Section 508 (2017, compliance date 18 January 2018) does not define its own "skip navigation" provision. E205.4 requires electronic content to conform to WCAG 2.0 Level A and AA, which pulls in SC 2.4.1 Bypass Blocks directly. It also supports the Chapter 3 Functional Performance Criteria 302.1 (Without Vision) and 302.7 (With Limited Manipulation), since both groups pay the highest price for a long repeated tab sequence.',
   howToTest: {
     keyboard: [
-      'Click once on the "Overview" link above, then press Shift+Tab until you are before it — or just reload and press Tab once.',
+      'Click once on the "Overview" link above, then press Shift+Tab until you are before it, or just reload and press Tab once.',
       'The first Tab press should reveal a "Skip to main content" link that was not visible a moment ago.',
       'Press Enter. Focus should jump to the "Main content" box.',
       'Press Tab once more. You should land on "First link inside main", not back in the navigation.',
     ],
     screenReader: [
       '"Skip to main content, link" as the very first announcement on the page.',
-      'After activating it, the main region and its heading — not the navigation list again.',
+      'After activating it, the main region and its heading, not the navigation list again.',
       'In the broken version you will hear nothing at all: the link is not in the accessibility tree.',
     ],
   },

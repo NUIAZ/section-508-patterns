@@ -9,17 +9,17 @@ const SCALE_PRESETS: readonly number[] = [100, 150, 200];
  *
  * Two separate criteria that get conflated:
  *
- *  - **1.4.10 Reflow (AA, WCAG 2.1)** — content must be presentable at 320 CSS pixels of
+ *  - **1.4.10 Reflow (AA, WCAG 2.1)**: content must be presentable at 320 CSS pixels of
  *    width without needing to scroll in two directions. 320px is not arbitrary: it is
  *    1280px at 400% zoom, which is how a low-vision user on a desktop actually reaches it.
- *  - **1.4.4 Resize Text (AA, WCAG 2.0)** — text must be resizable to 200% without loss of
+ *  - **1.4.4 Resize Text (AA, WCAG 2.0)**: text must be resizable to 200% without loss of
  *    content or functionality. This one IS a Section 508 requirement; 1.4.10 is not.
  *
  * The demo makes both testable in place: a width control that squeezes the container down
  * to 320px, and a scale control that raises the font size to 200%. The accessible layout
  * uses fluid widths, wrapping flex, and `rem` sizing with no fixed heights. The broken one
  * pins a `900px` width, uses `white-space: nowrap`, and clips its own text with a fixed
- * `height` plus `overflow: hidden` — which is how "text resize" failures actually look in
+ * `height` plus `overflow: hidden`, which is how "text resize" failures actually look in
  * production.
  */
 function Demo({ broken, idPrefix }: DemoProps): ReactNode {
@@ -123,7 +123,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
               }}
             >
               A fixed-height box. At 100% this text fits. At 150% it is clipped. At 200%
-              most of it is gone — and the user has no way to get it back, because the
+              most of it is gone, and the user has no way to get it back, because the
               container will never grow.
             </div>
             {/* BROKEN #4: a table forced wide. */}
@@ -190,7 +190,7 @@ const SOURCE = `/* ── REFLOW (SC 1.4.10, AA, WCAG 2.1) ───────
 
 /* 2. Let flex children shrink. flex-basis + wrap, and minWidth: 0
       because the default min-width:auto refuses to shrink below
-      content size — the number-one cause of mystery overflow. */
+      content size: the number-one cause of mystery overflow. */
 .row { display: flex; flex-wrap: wrap; gap: 1rem; }
 .col { flex: 1 1 18rem; min-width: 0; }
 
@@ -207,7 +207,7 @@ const SOURCE = `/* ── REFLOW (SC 1.4.10, AA, WCAG 2.1) ───────
 <div class="table-scroll" tabindex="0" role="region" aria-label="…">
 
 
-/* ── RESIZE TEXT (SC 1.4.4, AA, WCAG 2.0 — a real 508 requirement) ──
+/* ── RESIZE TEXT (SC 1.4.4, AA, WCAG 2.0, a real 508 requirement) ──
    Target: 200% text size with no loss of content or functionality. */
 
 /* 6. min-height, never height, on anything containing text. */
@@ -216,7 +216,7 @@ const SOURCE = `/* ── REFLOW (SC 1.4.10, AA, WCAG 2.1) ───────
 /* 7. Never overflow: hidden on a text container "to keep it tidy".
       Tidy at 100% is deleted at 200%. */
 
-/* 8. Do not pin the root font size — that overrides the visitor's
+/* 8. Do not pin the root font size; that overrides the visitor's
       browser preference outright. */
 html { font-size: 16px; }   /* ❌ */
 html { }                    /* ✅ inherit the browser default */
@@ -242,7 +242,7 @@ html { }                    /* ✅ inherit the browser default */
  * left in the layout turns every line of text into a horizontal scroll and back.
  *
  * Claims SC 1.4.4 Resize Text (AA), SC 1.4.10 Reflow (AA, WCAG 2.1) and SC 1.4.12 Text
- * Spacing (AA, WCAG 2.1). The last of those is the cheapest to test and the least known —
+ * Spacing (AA, WCAG 2.1). The last of those is the cheapest to test and the least known,
  * paste the spacing overrides from the `source` block in as a user stylesheet and a layout
  * built on `min-height` and normal wrapping passes untouched.
  */
@@ -250,7 +250,7 @@ export const reflowZoomPattern: PatternMeta = {
   id: 'reflow-zoom',
   title: 'Reflow at 320px and text resize to 200%',
   problem:
-    'A low-vision user browsing a desktop site at 400% zoom is effectively on a 320-pixel-wide viewport. If the layout has any fixed pixel width in it, they get a page that scrolls both ways — meaning every single line of text requires a horizontal scroll to read, then a scroll back. It is the difference between slow and impossible.',
+    'A low-vision user browsing a desktop site at 400% zoom is effectively on a 320-pixel-wide viewport. If the layout has any fixed pixel width in it, they get a page that scrolls both ways, meaning every single line of text requires a horizontal scroll to read, then a scroll back. It is the difference between slow and impossible.',
   keywords: ['reflow', '320px', 'zoom', '200%', 'resize text', 'responsive', 'overflow', 'text spacing'],
   criteria: [
     {
@@ -276,16 +276,16 @@ export const reflowZoomPattern: PatternMeta = {
     },
   ],
   section508:
-    'This pattern is a good example of why version matters. SC 1.4.4 Resize Text is WCAG 2.0 Level AA and IS incorporated by Section 508 via E205.4. SC 1.4.10 Reflow and SC 1.4.12 Text Spacing are both WCAG 2.1 additions and are therefore NOT part of the 2017 Revised 508 Standards — they are required by WCAG 2.1 AA, by EN 301 549, and by the DOJ ADA Title II rule (2024). If a procurement document asks for "508 compliance" and you build to WCAG 2.1 AA, you have exceeded the requirement, which is the correct direction to err. Functional Performance Criterion 302.2 With Limited Vision is the underlying 508 hook.',
+    'This pattern is a good example of why version matters. SC 1.4.4 Resize Text is WCAG 2.0 Level AA and IS incorporated by Section 508 via E205.4. SC 1.4.10 Reflow and SC 1.4.12 Text Spacing are both WCAG 2.1 additions and are therefore NOT part of the 2017 Revised 508 Standards; they are required by WCAG 2.1 AA, by EN 301 549, and by the DOJ ADA Title II rule (2024). If a procurement document asks for "508 compliance" and you build to WCAG 2.1 AA, you have exceeded the requirement, which is the correct direction to err. Functional Performance Criterion 302.2 With Limited Vision is the underlying 508 hook.',
   howToTest: {
     keyboard: [
       'Set the container width to 320px. In the accessible version everything stacks; in the broken version a horizontal scrollbar appears inside the frame.',
       'Set the text size to 200%. In the broken version the dashed box clips its own content and there is no way to recover it.',
-      'Drag the bottom-right corner of the frame — it is a resizable element, so you can try intermediate widths.',
+      'Drag the bottom-right corner of the frame; it is a resizable element, so you can try intermediate widths.',
       'For the real test: press Ctrl and + (Cmd and + on macOS) five times to reach 400% browser zoom on a 1280px window, and check that no page-level horizontal scrollbar appears.',
     ],
     screenReader: [
-      'Reflow is not a screen-reader concern — its users are people with low vision using magnification or zoom.',
+      'Reflow is not a screen-reader concern; its users are people with low vision using magnification or zoom.',
       'One overlap worth knowing: if you fix reflow by hiding content at narrow widths, you may create a 1.4.13 or 2.4.3 problem instead. Reflow means rearranged, not removed.',
     ],
   },

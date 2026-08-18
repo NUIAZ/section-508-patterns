@@ -12,14 +12,14 @@ import { useEffect, useRef, type RefObject } from 'react';
  *
  * Notes on the choices, because this selector is where most home-grown focus traps go
  * wrong:
- *  - `[tabindex]:not([tabindex="-1"])` — programmatically-focusable-only elements
+ *  - `[tabindex]:not([tabindex="-1"])`, programmatically-focusable-only elements
  *    (tabindex="-1") must be *skipped* when cycling, even though they can hold focus.
- *  - `:not([disabled])` — a disabled control is not in the tab order.
+ *  - `:not([disabled])`, a disabled control is not in the tab order.
  *  - `[contenteditable]` and `audio/video[controls]` are genuinely focusable and are
  *    routinely forgotten.
  *  - `details > summary` is focusable; plain `details` is not.
  *
- * Known limits — a CSS selector cannot express these, so {@link isFocusableNow} filters
+ * Known limits: a CSS selector cannot express these, so {@link isFocusableNow} filters
  * what it can and the rest are accepted as the cost of not shipping a layout engine:
  *  - **Hidden by stylesheet.** `display:none` or `visibility:hidden` applied from a CSS
  *    rule (rather than an inline `style`) is invisible to both the selector and the
@@ -31,7 +31,7 @@ import { useEffect, useRef, type RefObject } from 'react';
  *  - **Shadow DOM.** `querySelectorAll` does not pierce shadow roots, so focusable
  *    elements inside a web component are missed entirely.
  *  - **`inert`** *is* handled, but by the filter's ancestor check rather than by this
- *    selector — the `:has()`-free selector syntax here cannot look upwards.
+ *    selector: the `:has()`-free selector syntax here cannot look upwards.
  *
  * For the demos on this site that is all fine. For a production focus trap in an app with
  * web components or CSS-driven visibility, use a maintained library and read its caveats.
@@ -80,12 +80,12 @@ export function getFocusable(container: HTMLElement): HTMLElement[] {
  *
  * `onEscape` is required rather than optional on purpose. A trap you cannot leave from the
  * keyboard is a failure of SC 2.1.2 No Keyboard Trap (Level A), so the type refuses to let
- * you build one by omission — forgetting the exit has to be a deliberate act, not a
+ * you build one by omission: forgetting the exit has to be a deliberate act, not a
  * default. `returnFocusTo` is the only genuinely optional part, because the sensible
  * default (whatever had focus when the trap opened) is right almost every time.
  */
 export interface FocusTrapOptions {
-  /** When false the trap is completely inert — no listeners, no focus movement. */
+  /** When false the trap is completely inert: no listeners, no focus movement. */
   readonly active: boolean;
   /** Called on Escape. The pattern requires *some* keyboard exit; Escape is the standard. */
   readonly onEscape: () => void;
@@ -109,7 +109,7 @@ export interface FocusTrapOptions {
  *  2. Tab from the last focusable wraps to the first; Shift+Tab from the first wraps to
  *     the last. Focus that has somehow escaped is pulled back.
  *  3. Escape calls `onEscape`.
- *  4. On deactivation, focus returns to the trigger — SC 2.4.3 Focus Order (A). Dropping
+ *  4. On deactivation, focus returns to the trigger. SC 2.4.3 Focus Order (A). Dropping
  *     focus to <body> instead is the single most common modal bug: the screen reader user
  *     is dumped at the top of the page with no idea where they were.
  */
@@ -220,7 +220,7 @@ function visibleTextContent(element: Element): string {
  * aria-labelledby, aria-label, native labels, alt/title and text content, in specification
  * precedence order. The real algorithm handles pseudo-content, recursion limits, and role
  * exceptions. Comparing this to what NVDA or VoiceOver actually says is part of the
- * exercise — the honest lesson is that you verify names with a real screen reader or the
+ * exercise: the honest lesson is that you verify names with a real screen reader or the
  * browser accessibility tree, not with a helper like this one.
  */
 export function computeAccessibleName(element: HTMLElement): string {
@@ -253,7 +253,7 @@ export function computeAccessibleName(element: HTMLElement): string {
 
   if (element instanceof HTMLImageElement) {
     const alt = element.getAttribute('alt');
-    // An empty (but present) alt is a deliberate "this is decorative" — name is "".
+    // An empty (but present) alt is a deliberate "this is decorative"; name is "".
     if (alt !== null) return alt.trim();
   }
 

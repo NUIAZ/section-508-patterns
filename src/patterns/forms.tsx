@@ -14,7 +14,7 @@
  * announces "invalid" with no reason, or nothing at all, and the user is left hunting for
  * which of eight fields is the problem.
  *
- * Criteria demonstrated — more than any other pattern here, which is why forms account for
+ * Criteria demonstrated: more than any other pattern here, which is why forms account for
  * so many audit findings: SC 1.3.1 Info and Relationships (A) for the label/control
  * association; SC 3.3.2 Labels or Instructions (A); SC 3.3.1 Error Identification (A);
  * SC 3.3.3 Error Suggestion (AA), which requires saying how to fix it and not merely that
@@ -71,7 +71,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
     } else if (!candidate.email.includes('@')) {
       // SC 3.3.3 Error Suggestion (AA): say what is wrong AND how to fix it, when the fix
       // is known. "Invalid input" fails; "must include an @" passes.
-      next.email = 'Enter an email address in the form name@example.com — it must include an @.';
+      next.email = 'Enter an email address in the form name@example.com; it must include an @.';
     }
     if (candidate.reference.trim() !== '' && !/^[A-Z]{2}-\d{4}$/.test(candidate.reference.trim())) {
       next.reference = 'Reference must be two capital letters, a hyphen, then four digits, like AB-1234.';
@@ -217,7 +217,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
         {broken ? (
           <>
             {/* BROKEN: a label-shaped <span> with no `for`. Visually identical, and
-                completely unassociated — clicking it does not focus the field, and a
+                completely unassociated: clicking it does not focus the field, and a
                 screen reader announces the input as "edit, blank". */}
             <span style={{ fontWeight: 600, display: 'block' }}>Email address *</span>
             <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
@@ -288,7 +288,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
           <>
             <label htmlFor={id('reference')}>Case reference</label>
             <span className="hint" id={id('reference-hint')}>
-              Optional. Two capital letters, a hyphen, then four digits — for example
+              Optional. Two capital letters, a hyphen, then four digits, for example
               AB-1234.
             </span>
             <input
@@ -336,7 +336,7 @@ function Demo({ broken, idPrefix }: DemoProps): ReactNode {
   );
 }
 
-const SOURCE = `{/* 1. Label association — <label for> ↔ id. Nothing else. */}
+const SOURCE = `{/* 1. Label association: <label for> ↔ id. Nothing else. */}
 <label for="email">
   Email address <span class="hint">(required)</span>
 </label>
@@ -359,7 +359,7 @@ const SOURCE = `{/* 1. Label association — <label for> ↔ id. Nothing else. *
 {hasError && (
   <span class="field-error" id="email-error">
     <span aria-hidden="true">✕ </span>
-    Enter an email address in the form name@example.com — it must include an @.
+    Enter an email address in the form name@example.com; it must include an @.
   </span>
 )}
 
@@ -395,11 +395,11 @@ function onSubmit(e) {
      ❌ aria-label that differs from the visible label (breaks 2.5.3)
      ❌ "Invalid input" with no explanation of what would be valid
      ❌ errors announced only by turning the border red
-     ❌ title="…" as the label — hover-only, and unreliable */`;
+     ❌ title="…" as the label, hover-only, and unreliable */`;
 
 /**
- * Registry entry for the forms pattern. It cites eight success criteria — more than any
- * other card here — which is not padding: a form is where labelling, instructions, error
+ * Registry entry for the forms pattern. It cites eight success criteria, more than any
+ * other card here, which is not padding: a form is where labelling, instructions, error
  * identification, error suggestion, colour independence, naming, heading quality and input
  * purpose all have to be right at once, and getting seven of the eight still leaves a user
  * stuck. See the file header for the criterion-by-criterion breakdown.
@@ -425,7 +425,7 @@ export const formsPattern: PatternMeta = {
       name: 'Info and Relationships',
       level: 'A',
       since: '2.0',
-      why: 'The relationship between a label, its hint, its error message, and the input must be programmatic — not just visual proximity. That is what for/id and aria-describedby encode.',
+      why: 'The relationship between a label, its hint, its error message, and the input must be programmatic, not just visual proximity. That is what for/id and aria-describedby encode.',
     },
     {
       number: '3.3.2',
@@ -478,14 +478,14 @@ export const formsPattern: PatternMeta = {
     },
   ],
   section508:
-    'The 2.0-era criteria here (1.3.1, 3.3.1, 3.3.2, 3.3.3, 1.4.1, 4.1.2, 2.4.6) are all incorporated by E205.4 for content and 502/503 for software. SC 1.3.5 Identify Input Purpose is a WCAG 2.1 addition and is therefore NOT part of the 2017 Revised 508 Standards — it is included here because it is required by WCAG 2.1 AA and is genuinely useful. Functional Performance Criteria that bear on forms: 302.1 Without Vision, 302.3 Without Perception of Color (the required-field indicator), and 302.9 With Limited Language, Cognitive, and Learning Abilities (error messages that explain the fix rather than restating that something is wrong).',
+    'The 2.0-era criteria here (1.3.1, 3.3.1, 3.3.2, 3.3.3, 1.4.1, 4.1.2, 2.4.6) are all incorporated by E205.4 for content and 502/503 for software. SC 1.3.5 Identify Input Purpose is a WCAG 2.1 addition and is therefore NOT part of the 2017 Revised 508 Standards; it is included here because it is required by WCAG 2.1 AA and is genuinely useful. Functional Performance Criteria that bear on forms: 302.1 Without Vision, 302.3 Without Perception of Color (the required-field indicator), and 302.9 With Limited Language, Cognitive, and Learning Abilities (error messages that explain the fix rather than restating that something is wrong).',
   howToTest: {
     keyboard: [
       'Tab through the form. Each field should announce its label; in the broken version they announce nothing useful.',
       'Click the visible "Email address" text. In the accessible version this focuses the input (that is what a real <label> does); in the broken version nothing happens.',
       'Leave everything empty and press Enter on Submit.',
       'Focus should jump to the error summary at the top of the form.',
-      'Tab to the first error link and press Enter — focus moves to the field that needs fixing.',
+      'Tab to the first error link and press Enter: focus moves to the field that needs fixing.',
       'Type an email without an @ and submit again. The message should tell you what would be valid.',
     ],
     screenReader: [

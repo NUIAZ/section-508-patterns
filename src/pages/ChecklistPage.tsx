@@ -3,13 +3,13 @@
  * Markdown export.
  *
  * Tick state is per-browser `localStorage`, keyed on item id, and that is the whole
- * persistence story — there is no account, no sync, and no server. Said plainly because the
+ * persistence story: there is no account, no sync, and no server. Said plainly because the
  * page looks like an audit tool: clearing site data loses the ticks, and two people
  * reviewing the same product see two independent checklists. Anyone who needs a shared
  * record should use the Markdown export, which is why it exists.
  *
- * The page is also itself a demonstration — grouped checkboxes, an announced progress
- * count, and print styles — so changes here should be held to the standard the rest of the
+ * The page is also itself a demonstration (grouped checkboxes, an announced progress
+ * count, and print styles), so changes here should be held to the standard the rest of the
  * site argues for. The specifics are documented on the component.
  */
 
@@ -116,7 +116,7 @@ export function ChecklistPage(): ReactNode {
     ];
     for (const group of groups) {
       lines.push(
-        `## ${group.criterion} ${group.criterionName} — Level ${group.level} (WCAG ${group.since})`,
+        `## ${group.criterion} ${group.criterionName} (Level ${group.level}, WCAG ${group.since})`,
         '',
       );
       for (const item of group.items) {
@@ -152,7 +152,7 @@ export function ChecklistPage(): ReactNode {
         conformance audit and not legal advice. A full WCAG 2.1 Level AA conformance claim
         covers all fifty Level A and AA success criteria, including the audio, video, and
         captioning criteria this site does not cover. Ticking every box here means you have
-        cleared the failures that most commonly appear in application interfaces — it does
+        cleared the failures that most commonly appear in application interfaces; it does
         not by itself constitute a conformance claim, an Accessibility Conformance Report,
         or a VPAT.
       </p>
@@ -184,7 +184,7 @@ export function ChecklistPage(): ReactNode {
 
       <p className="progress-line" role="status">
         {doneCount} of {CHECKLIST.length} items checked
-        {doneCount === CHECKLIST.length ? ' — all done.' : '.'}
+        {doneCount === CHECKLIST.length ? ', all done.' : '.'}
       </p>
 
       {groups.map((group) => {
@@ -205,7 +205,7 @@ export function ChecklistPage(): ReactNode {
 
             {group.since === '2.1' ? (
               <p className="hint" style={{ marginBlockEnd: '0.5rem' }}>
-                Added in WCAG 2.1 — required by WCAG 2.1 AA and by the DOJ ADA Title II rule
+                Added in WCAG 2.1: required by WCAG 2.1 AA and by the DOJ ADA Title II rule
                 (2024), but outside the WCAG 2.0 reference in the 2017 Revised Section 508
                 Standards.
               </p>

@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
  *
  * Accessibility note that a library would not have given us for free: a client-side route
  * change does not reload the document, so a screen reader is never told anything happened.
- * The fix lives in `App.tsx` — on every route change we move focus to the new page's <h1>
+ * The fix lives in `App.tsx`: on every route change we move focus to the new page's <h1>
  * and announce the page name in a live region. That is not one specific success criterion
  * so much as the combination of 2.4.3 Focus Order (A) and 4.1.3 Status Messages (AA).
  */
@@ -22,14 +22,14 @@ export type RouteName = 'patterns' | 'checklist' | 'testing';
  * A parsed location: which page, plus an optional in-page target.
  *
  * The two parts are split rather than kept as one opaque string because the shell treats
- * them differently — a change of `name` moves focus to the page heading, while an `anchor`
+ * them differently: a change of `name` moves focus to the page heading, while an `anchor`
  * scrolls a specific pattern card into view and focuses *its* heading instead. Collapsing
  * them would lose the distinction between "you have arrived on the checklist" and "you
  * have arrived at the focus-trap card", which is exactly what gets announced.
  */
 export interface Route {
   readonly name: RouteName;
-  /** The `#pattern-id` part after the route, if any — used for deep links from the checklist. */
+  /** The `#pattern-id` part after the route, if any, used for deep links from the checklist. */
   readonly anchor: string | null;
 }
 
@@ -64,7 +64,7 @@ export function routeHref(name: RouteName, anchor?: string): string {
 /**
  * Subscribe to the current route, re-rendering on every `hashchange`.
  *
- * Deliberately returns the route and nothing else — no `navigate()` function. Navigation
+ * Deliberately returns the route and nothing else: no `navigate()` function. Navigation
  * on this site happens through real `<a href>` elements built by {@link routeHref}, never
  * through a click handler on a `<div>`. That is not stylistic: a genuine link is focusable,
  * announced as "link", works with Enter, and offers open-in-new-tab, all for free. Handing

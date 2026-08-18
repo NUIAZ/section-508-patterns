@@ -200,6 +200,31 @@ pattern for why accessible names and visible labels have to agree.
 
 ---
 
+## Government testing resources
+
+The U.S. government publishes its own free test processes and tools for Section 508. If
+you need to show your work to a federal customer, or just want a testing method that is
+not "run a scanner and hope", start here:
+
+- **Section508.gov: Test for Accessibility** (GSA), the official overview of how federal
+  agencies test ICT: <https://www.section508.gov/test/> and the web and software specifics
+  at <https://www.section508.gov/test/web-software/>.
+- **Trusted Tester** (DHS), a step-by-step manual conformance test process for web content
+  with a free certification course: <https://www.dhs.gov/trusted-tester> and
+  <https://www.section508.gov/test/trusted-tester/>.
+- **ICT Testing Baseline for Web** (Access Board, DHS, SSA), the shared set of tests that
+  federal test processes must at minimum cover: <https://ictbaseline.access-board.gov/>.
+- **ANDI** (Social Security Administration), a free bookmarklet that inspects accessible
+  names, roles, focus order, contrast and structure in your own browser; it is the tool the
+  Trusted Tester process is built around: <https://www.ssa.gov/accessibility/andi/>.
+- **U.S. Access Board: Revised 508 Standards**, the standard itself:
+  <https://www.access-board.gov/ict/>.
+- **Digital.gov accessibility topic** (GSA), guidance and community resources:
+  <https://digital.gov/topics/accessibility/>.
+
+The **How to test** page in the app covers the hands-on part: keyboard walkthrough, zoom
+and reflow, and NVDA / JAWS / VoiceOver key commands.
+
 ## Sources
 
 - W3C: *Web Content Accessibility Guidelines (WCAG) 2.1*, and the *Understanding* and

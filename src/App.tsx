@@ -124,13 +124,20 @@ export function App(): ReactNode {
           </div>
         </header>
 
-        <Sidebar
-          route={route.name}
-          query={query}
-          onQueryChange={setQuery}
-          matches={matches}
-          total={PATTERNS.length}
-        />
+        {/* The sidebar is sticky, and a sticky GRID ITEM is constrained by the whole grid
+            container in Chromium rather than by its own row, so on a long page it slid down
+            over the footer. Wrapping it in a plain grid cell makes the cell the containing
+            block; the cell stretches to the row height, so the sticky nav can never leave
+            the row. See .site-sidebar-cell in global.css. */}
+        <div className="site-sidebar-cell">
+          <Sidebar
+            route={route.name}
+            query={query}
+            onQueryChange={setQuery}
+            matches={matches}
+            total={PATTERNS.length}
+          />
+        </div>
 
         <main id="main" ref={mainRef} tabIndex={-1}>
           {/* The route announcement region. Always mounted, so a screen reader has

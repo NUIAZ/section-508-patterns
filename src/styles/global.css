@@ -246,6 +246,13 @@ kbd {
   padding: clamp(1rem, 3vw, 2rem);
 }
 
+/* Plain grid cell around the sticky sidebar. A sticky grid item is bounded by the grid
+   container (Chromium), not its row, so on a long page it slides over the footer; giving
+   it a non-sticky parent that stretches to the row height bounds it to the row. */
+.site-sidebar-cell {
+  min-width: 0;
+}
+
 .site-sidebar {
   position: sticky;
   /* Sticky, but never taller than the viewport, and scrollable inside; otherwise the

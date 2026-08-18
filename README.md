@@ -2,6 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<p align="center">
+  <img src="docs/hero-dark.png" width="720" alt="The focus-trap pattern card: title, problem statement, an Accessible / Broken switch, and the live demo with a Delete this project button above a background form">
+</p>
+<p align="center"><sub>Every pattern is a real component with an Accessible / Broken switch. Full card in <a href="docs/screenshot.png">docs/screenshot.png</a>; the plain <a href="docs/text-version.png">text version</a> is what a no-script browser gets.</sub></p>
+
 A live, working reference of accessibility patterns for web applications, each one
 demonstrated by a real interactive component, shown beside a **deliberately broken
 version** you can switch to and experience failing with a keyboard or a screen reader.
@@ -188,6 +193,10 @@ src/
     theme.tsx        prefers-color-scheme + persisted manual override
     types.ts         the PatternMeta shape every card is generated from
     textVersion.ts   renders the whole reference as one plain HTML page (text.html)
+scripts/
+  build-text.mjs     writes public/text.html before dev and build
+  screenshots.mjs    captures docs/*.png from the live site (Playwright, not a dependency)
+docs/                screenshots used by this README and social posts
   components/        PatternCard, CodeBlock, Sidebar, ThemeToggle
   patterns/          one file per pattern: metadata, criteria, demo, broken demo, source
   pages/             PatternsPage, ChecklistPage, TestingPage

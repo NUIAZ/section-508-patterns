@@ -6,11 +6,12 @@
   "description": "A live, working reference of web accessibility patterns mapped to Section 508 and WCAG 2.1 AA.",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b --force && vite build",
+    "dev": "npm run build:text && vite",
+    "build": "npm run build:text && tsc -b --force && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:text": "node scripts/build-text.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",

@@ -13,14 +13,32 @@
       content="A live, working reference of web accessibility patterns, each shown with a real demo, a deliberately broken version, source code, and its WCAG 2.1 / Section 508 mapping."
     />
     <meta name="color-scheme" content="light dark" />
-    <title>Section 508 Patterns — a live accessibility reference</title>
+    <title>Section 508 Patterns: a live accessibility reference</title>
   </head>
   <body>
     <div id="root"></div>
     <noscript>
-      This reference renders its demos with JavaScript, because the point of it is to let
-      you operate real interactive components with a keyboard and a screen reader. The
-      written checklist and the WCAG mappings are also available in the repository README.
+      <div style="max-width: 46rem; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif; line-height: 1.5">
+        <h1>Section 508 Patterns</h1>
+        <p>
+          This reference is a JavaScript application, and it looks like your browser has scripting
+          turned off or does not support it. That is a fair thing to want, so here are your two
+          options.
+        </p>
+        <p>
+          <strong>Read the text version:</strong> <a href="./text.html">text.html</a> has every
+          pattern with its WCAG criteria, Section 508 mapping, test procedure and source, in plain
+          HTML with no script and no stylesheet. It is generated from the same data as this site on
+          every build, so it is always current. What it cannot include is the live demos and the
+          Accessible / Broken switch, because operating a real component is what needs script.
+        </p>
+        <p>
+          <strong>Or try the interactive version:</strong> if you can, enable JavaScript for this
+          site, or open it in a current Firefox, Chrome, Edge or Safari, all of which support it,
+          including with a screen reader. Nothing here is served from a third party; the script is
+          the site itself.
+        </p>
+      </div>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

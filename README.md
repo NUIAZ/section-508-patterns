@@ -91,13 +91,35 @@ users of assistive technology.
 
 ---
 
+## Text-only version (no script required)
+
+The site is a JavaScript application, and a browser with scripting off (or a text-only
+browser such as Lynx) would otherwise see nothing but a notice. So the build also produces
+**`text.html`**: the whole reference (every pattern with its criteria, Section 508 mapping,
+test procedure and source, plus the checklist) as plain semantic HTML with no script and no
+stylesheet. Live: <https://nuiaz.github.io/section-508-patterns/text.html>.
+
+It is **generated, not written**. `scripts/build-text.mjs` runs before every `dev` and
+`build`, reads the same `PATTERNS` and `CHECKLIST` arrays the interactive site renders, and
+writes `public/text.html` (gitignored). That is the answer to the problem the 1998 Section
+508 rule had with text-only pages: they were allowed only "when compliance cannot be
+accomplished in any other way" and had to be kept in sync, and hand-written ones never were.
+This one cannot drift, and `src/__tests__/textVersion.test.ts` fails the build if any
+pattern or checklist item is missing from it.
+
+The `<noscript>` block in `index.html` says so plainly and offers both paths: read the text
+version, or open the site in a browser with JavaScript enabled (any current Firefox, Chrome,
+Edge or Safari, including with a screen reader). What the text version cannot carry is the
+live demos and the Accessible / Broken switch, because operating a real component is the
+part that needs script.
+
 ## Running it
 
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # vitest, 98 tests
-npm run build    # tsc -b (strict) then vite build → dist/
+npm test         # vitest, 105 tests
+npm run build    # generate text.html, tsc -b (strict), then vite build → dist/
 npm run preview  # serve the production build locally
 ```
 
@@ -107,7 +129,7 @@ Requires Node 20 or newer; CI uses Node 22.
 
 ## Tests
 
-98 tests across 10 files, covering the things automated scanners cannot see:
+105 tests across 11 files, covering the things automated scanners cannot see:
 
 - **Focus trap**: Tab cycles forward from the last control, Shift+Tab cycles backward from
   the first, focus never reaches the background form, Escape closes, and focus is restored
@@ -165,6 +187,7 @@ src/
     search.ts        client-side search over titles, problems, and criteria
     theme.tsx        prefers-color-scheme + persisted manual override
     types.ts         the PatternMeta shape every card is generated from
+    textVersion.ts   renders the whole reference as one plain HTML page (text.html)
   components/        PatternCard, CodeBlock, Sidebar, ThemeToggle
   patterns/          one file per pattern: metadata, criteria, demo, broken demo, source
   pages/             PatternsPage, ChecklistPage, TestingPage

@@ -162,6 +162,13 @@ export function App(): ReactNode {
             incorporates WCAG 2.0 Level A and AA by reference; criteria added in WCAG 2.1
             are labelled as such throughout. MIT licensed.
           </p>
+          <p style={{ maxWidth: 'none', margin: '0.5rem 0 0' }}>
+            {/* The text version is generated from the same registry at build time (see
+                src/lib/textVersion.ts). Linking it here, not only from <noscript>, keeps it
+                discoverable for people who can run script but prefer to read or print. */}
+            <a href="./text.html">Text version</a> of every pattern and the checklist, no
+            script required.
+          </p>
         </footer>
       </div>
     </>

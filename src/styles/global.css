@@ -388,7 +388,11 @@ select[aria-invalid='true'] {
 label {
   display: inline-block;
   font-weight: 600;
-  margin-block-end: 0.2rem;
+  /* Room on both axes: below, for the usual stacked label-over-input; and to the right,
+     for the demos that put the label and input on one line (the focus-trap background
+     form, the timeout draft field), where they otherwise touch. */
+  margin-block-end: 0.35rem;
+  margin-inline-end: 0.6rem;
 }
 
 .field {
